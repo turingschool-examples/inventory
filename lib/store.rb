@@ -12,4 +12,8 @@ class Store
     @inventory_record = []
   end
 
+  def add_inventory(inventory)
+    @inventory_record << inventory
+  end
+
 end
