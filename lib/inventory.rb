@@ -18,6 +18,7 @@ class Inventory
       end
     else
     @items.merge(item)
+    binding.pry
     end
 
   end
