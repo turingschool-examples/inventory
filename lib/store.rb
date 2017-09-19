@@ -29,11 +29,13 @@ class Store
   end
 
   def amount_sold(item_name)
-    current_stock = current_inventory && current_inventory.stock(item_name)
-    return nil if current_stock.nil?
-    previous_stock = previous_inventory && previous_inventory.stock(item_name)
-    return 0 if previous_stock.nil?
-    previous_stock - current_stock
+    current = current_inventory && current_inventory.quantity(item_name)
+    return nil if current.nil?
+    previous = previous_inventory && previous_inventory.quantity(item_name)
+    return 0 if previous.nil?
+    previous - current
   end
+
+
 
 end
