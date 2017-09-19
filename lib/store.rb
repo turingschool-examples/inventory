@@ -16,4 +16,14 @@ class Store
     @inventory_record << inventory
   end
 
+  def inventory_record
+    @inventory_record
+  end
+
+  def stock_check(item)
+    @inventory_record.find{|inventory| inventory[:item] = item }
+  end
+
+  def amount_sold
+    @inventory.
 end
