@@ -22,4 +22,17 @@ class Store
     end
     stock.items[item]
   end
+
+  def amount_sold(item)
+    stock = inventory_record.find_all do |inventory|
+      inventory.items[item]
+    end
+    stock.reduce(0) do |thing1, thing2|
+      if thing1 == 0
+        thing1 = thing2
+      else
+        thing1 = thing1.items[item]["quantity"] - thing2.items[item]["quantity"]
+      end
+    end
+  end
 end
