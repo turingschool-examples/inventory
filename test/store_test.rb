@@ -84,6 +84,7 @@ class StoreTest < Minitest::Test
 
 
 def test_for_total_cost
+  skip
   hobby_town = Store.new("Hobby Town", "894 Bee St", "Hobby")
   inventory5 = Inventory.new(Date.new(2017, 3, 10))
   inventory5.record_item({"miniature orc" => {"quantity" => 2000, "cost" => 20}})

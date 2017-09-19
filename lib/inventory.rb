@@ -3,7 +3,7 @@ require 'date'
 class Inventory
   attr_reader :date, :items
   def initialize(date)
-    @date = Date.new
+    @date = date
     @items = {}
   end
 
