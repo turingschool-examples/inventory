@@ -17,18 +17,20 @@ class InventoryTest < Minitest::Test
     assert_instance_of Date, inventory1.date
   end
 
-def test_it_can_take_items
-  assert inventory1.items.empty?
-end
+  def test_it_can_take_items
+    assert inventory1.items.empty?
+  end
 
-def test_it_can_record_items
-  expected = inventory1.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
-  actual = {"shirt" => {"quantity" => 50, "cost" => 15}}
-  assert_equal expected, actual
-end
+  def test_it_can_record_items
+    expected = inventory1.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
+    actual = {"shirt" => {"quantity" => 50, "cost" => 15}}
+    assert_equal expected, actual
+  end
 
-def test_it_can_take_multiple_items
-  assert_equal ?, inventory1.items
-end
+  def test_it_can_take_multiple_items
+    inventory1.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
+    inventory1.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
+    assert_equal 1, inventory1.items.count
+  end
 
 end
