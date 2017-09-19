@@ -44,19 +44,26 @@ class Store
     find_difference(stock, item)
   end
 
-  def us_order(order)
+  def calculate_us_dollars(order)
     purchases = order.keys
     quantity = order.values
     total = nil
     inventory_record.find do |inventory|
-      cost1 = inventory.items[purchases[0]]["cost"] * quantity[0]
-      cost2 = inventory.items[purchases[1]]["cost"] * quantity[1]
-      total = cost1 + cost2
+        cost1 = inventory.items[purchases[0]]["cost"] * quantity[0]
+        cost2 = inventory.items[purchases[1]]["cost"] * quantity[1]
+        total = cost1 + cost2
+      end
+      total
     end
+
+  def us_order(order)
+    total = calculate_us_dollars(order)
     total = "$#{total.to_s}"
   end
 
-  def brazillian_order
-    
+  def brazillian_order(order)
+    us_total = calculate_us_dollars(order)
+    amount = (us_total.to_f * 3.08).round(2)
+    "R$#{amount.to_s}0"
   end
 end
