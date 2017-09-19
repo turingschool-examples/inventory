@@ -54,7 +54,7 @@ class StoreTest < Minitest::Test
     assert_equal [{"quantity" => 50, "cost" => 15}], store.stock_check("shirt")
   end
 
-  def test_more_than_one_stock
+  def test_store_can_check_more_than_one_inventory_stock
     ace = Store.new("Ace", "834 2nd St", "Hardware")
 
     inventory3 = Inventory.new(Date.new(2017, 9, 16))
@@ -67,7 +67,9 @@ class StoreTest < Minitest::Test
     ace.add_inventory(inventory3)
     ace.add_inventory(inventory4)
 
-    assert_equal [{"quantity" => 20, "cost" => 20}, {"quantity" => 15, "cost" => 20}], ace.stock_check('hammer')
+    hammer_stock = [{"quantity" => 20, "cost" => 20}, {"quantity" => 15, "cost" => 20}]
+
+    assert_equal hammer_stock, ace.stock_check('hammer')
   end
 
   def test_quantities_returns_all_inventory_quantities
@@ -129,33 +131,46 @@ class StoreTest < Minitest::Test
 
   def test_store_can_find_cost_of_item
     store = Store.new("Ace", "834 2nd St", "Hardware")
+
     inventory = Inventory.new(Date.new(2017, 9, 18))
+
     inventory.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
+    inventory.record_item({"shoes" => {"quantity" => 30, "cost" => 20}})
+
     store.add_inventory(inventory)
 
     assert_equal 15, store.find_cost("shirt")
+    assert_equal 20, store.find_cost("shoes")
   end
 
   def test_store_can_calculate_us_price
     hobby_town = Store.new("Hobby Town", "894 Bee St", "Hobby")
+
     inventory5 = Inventory.new(Date.new(2017, 3, 10))
+
     inventory5.record_item({"miniature orc" => {"quantity" => 2000, "cost" => 20}})
     inventory5.record_item({"fancy paint brush" => {"quantity" => 200, "cost" => 20}})
-    hobby_town.add_inventory(inventory5)
 
-    assert_equal 620, hobby_town.us_order_num({"miniature orc" => 30, "fancy paint brush" => 1})
-    assert_equal '$620', hobby_town.us_order({"miniature orc" => 30, "fancy paint brush" => 1})
+    hobby_town.add_inventory(inventory5)
+    order = {"miniature orc" => 30, "fancy paint brush" => 1}
+
+    assert_equal 620, hobby_town.us_order_num(order)
+    assert_equal '$620', hobby_town.us_order(order)
   end
 
   def test_store_can_calculate_brazillian_order
     hobby_town = Store.new("Hobby Town", "894 Bee St", "Hobby")
+
     inventory5 = Inventory.new(Date.new(2017, 3, 10))
+
     inventory5.record_item({"miniature orc" => {"quantity" => 2000, "cost" => 20}})
     inventory5.record_item({"fancy paint brush" => {"quantity" => 200, "cost" => 20}})
-    hobby_town.add_inventory(inventory5)
 
-    assert_equal 1909.60, hobby_town.brazilian_order_num({"miniature orc" => 30, "fancy paint brush" => 1})
-    assert_equal 'R$1909.60', hobby_town.brazilian_order({"miniature orc" => 30, "fancy paint brush" => 1})
+    hobby_town.add_inventory(inventory5)
+    order = {"miniature orc" => 30, "fancy paint brush" => 1}
+
+    assert_equal 1909.60, hobby_town.brazilian_order_num(order)
+    assert_equal 'R$1909.60', hobby_town.brazilian_order(order)
   end
 
 end

@@ -23,7 +23,9 @@ class InventoryTest < Minitest::Test
   def test_inventory_can_record_new_item
     inventory1.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
 
-    assert_equal ({"shirt" => {"quantity" => 50, "cost" => 15}}), inventory1.items
+    inventory1_items = {"shirt" => {"quantity" => 50, "cost" => 15}}
+
+    assert_equal (inventory1_items), inventory1.items
   end
 
   def test_inventory_can_record_multiple_new_items
@@ -46,8 +48,11 @@ class InventoryTest < Minitest::Test
     inventory1.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
     inventory1.record_item({"shoes" => {"quantity" => 30, "cost" => 20}})
 
-    assert_equal ({"quantity" => 50, "cost" => 15}), inventory1.check_inventory("shirt")
-    assert_equal ({"quantity" => 30, "cost" => 20}), inventory1.check_inventory("shoes")
+    shoes = {"quantity" => 30, "cost" => 20}
+    shirt = {"quantity" => 50, "cost" => 15}
+
+    assert_equal (shirt), inventory1.check_inventory("shirt")
+    assert_equal (shoes), inventory1.check_inventory("shoes")
   end
 
   def test_item_cost_returns_nil_for_item_not_in_inventory

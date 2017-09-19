@@ -31,8 +31,12 @@ class Store
   end
 
   def amount_sold(item)
-    return 0 if stock_check(item).nil? || stock_check(item).count < 2
+    return 0 if too_few_quantities?(item)
     subtract_quantities(item)
+  end
+
+  def too_few_quantities?(item)
+    stock_check(item).nil? || stock_check(item).count < 2
   end
 
   def subtract_quantities(item)
