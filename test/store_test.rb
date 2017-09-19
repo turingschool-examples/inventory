@@ -13,6 +13,7 @@ class StoreTest < Minitest::Test
     inventory2 = Inventory.new(Date.new(2017, 9, 18))
     inventory2.record_item({"shoes" => {"quantity" => 40, "cost" => 30}})
     inventory3 = Inventory.new(Date.new(2017, 9, 20))
+    inventory3.record_item({"shirt" => {"quantity" => 55, "cost" => 15}})
     @acme.add_inventory(inventory1)
     @acme.add_inventory(inventory3)
   end
@@ -55,13 +56,26 @@ class StoreTest < Minitest::Test
 
   def test_stock_check_returns_item_information_if_item_is_in_any_inventory
     actual = @acme.stock_check("shirt")
-    expected = {"quantity" => 60, "cost" => 15}
+    expected = {"quantity" => 55, "cost" => 15}
+
+    assert_equal expected, actual
+  end
+
+  def test_find_inventories_with_item_returns_array_of_inventories_with_item
+    actual = @acme.find_inventories_with_item("shirt")
+    expected = [@acme.inventory_record.first, @acme.inventory_record.last]
+
+    assert_equal expected, actual
+  end
+
+  def test_sort_by_most_recent_returns_ordered_array_of_most_recent_inventories
+    actual = @acme.sort_by_most_recent(@acme.inventory_record)
+    expected = [@acme.inventory_record.last, @acme.inventory_record.first]
 
     assert_equal expected, actual
   end
 
   def test_amount_sold_returns_the_amount_sold_between_two_dates
-    skip
     ace = Store.new("Ace", "834 2nd St", "Hardware")
 
     inventory3 = Inventory.new(Date.new(2017, 9, 16))

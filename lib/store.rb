@@ -29,7 +29,8 @@ class Store
   end
 
   def sort_by_most_recent(inventories)
-    inventories.sort_by { |inventory| inventory.date }
+    descend = -1
+    inventories.sort_by { |inventory| descend * inventory.date.to_time.to_i }
   end
 
   def amount_sold(item)
