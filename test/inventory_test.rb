@@ -40,4 +40,21 @@ class InventoryTest < Minitest::Test
 
     assert_equal ({"shirt" => {"quantity" => 60, "cost" => 15}}), inventory1.items
   end
+
+  def test_amount_sold
+    ace = Store.new("Ace", "834 2nd St", "Hardware")
+
+    inventory3 = Inventory.new(Date.new(2017, 9, 16))
+    inventory3.record_item({"hammer" => {"quantity" => 20, "cost" => 20}})
+
+    inventory4 = Inventory.new(Date.new(2017, 9, 18))
+    inventory4.record_item({"mitre saw" => {"quantity" => 10, "cost" => 409}})
+    inventory4.record_item({"hammer" => {"quantity" => 15, "cost" => 20}})
+
+    ace.add_inventory(inventory3)
+    ace.add_inventory(inventory4)
+
+    assert_equal 5, ace.amount_sold("hammer")
+  end
+
 end
