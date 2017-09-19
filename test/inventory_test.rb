@@ -21,4 +21,17 @@ class InventoryTest < Minitest::Test
     assert_empty @inventory1.items
   end
 
+  def test_record_item_adds_a_key_value_pair_whose_key_is_a_string_and_value_is_a_hash
+    @inventory1.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
+    assert_equal ({"shirt"=>{"quantity"=>50, "cost"=>15}}), @inventory1.items
+  end
+
+  def test_record_item_will_add_quantity_and_cost_to_previously_added_item
+    @inventory1.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
+    assert_equal ({"shirt"=>{"quantity"=>50, "cost"=>15}}), @inventory1.items
+
+    @inventory1.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
+    assert_equal ({"shirt"=>{"quantity"=>100, "cost"=>30}}), @inventory1.items
+  end
+
 end
