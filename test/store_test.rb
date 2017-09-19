@@ -73,8 +73,6 @@ class StoreTest < Minitest::Test
 
     assert_equal 18, sorted_inventories[0].date.day
     assert_equal 16, sorted_inventories[1].date.day
-
-
   end
 
   def test_it_can_tell_how_much_sold
@@ -86,6 +84,7 @@ class StoreTest < Minitest::Test
     inventory4 = Inventory.new(Date.new(2017, 9, 18))
     inventory4.record_item({"mitre saw" => {"quantity" => 10, "cost" => 409}})
     inventory4.record_item({"hammer" => {"quantity" => 15, "cost" => 20}})
+
     ace.add_inventory(inventory3)
     ace.add_inventory(inventory4)
 

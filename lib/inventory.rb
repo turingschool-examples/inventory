@@ -9,7 +9,7 @@ class Inventory
   end
 
   def record_item(item)
-    if @items.empty?
+    if @items.empty? || key_already_here?(item)
       @items = @items.merge(item)
     else
       keys = item.keys
@@ -20,17 +20,13 @@ class Inventory
     end
   end
 
-
-  # def record_item(item)
-  #   keys = item.keys
-  #   key = keys[0]
-  #   values = item.values
-  #   value = values[0]
-  #   if items[key] != key
-  #     @items[key] = value
-  #   else
-  #     @items.merge!(item){|key, oldval, newval| newval + oldval}
-  #   end
-  # end
-
+  def key_already_here?(item)
+    keys = item.keys
+    key = keys[0]
+    if @items.any? {|k, value| k == key}
+      false
+    else
+      true
+    end
+  end
 end

@@ -22,10 +22,22 @@ class InventoryTest < Minitest::Test
   end
 
   def test_it_can_record_item
-    
     item = {"shirt" => {"quantity" => 50, "cost" => 15}}
     @i.record_item(item)
+
     assert_equal 1, @i.items.length
+
+    hash = {"shirt" => {"quantity" => 50, "cost" => 15}}
+
+    assert_equal hash, @i.items
+  end
+
+  def test_can_tell_if_key_already_here
+    item = {"shirt" => {"quantity" => 50, "cost" => 15}}
+    @i.record_item(item)
+
+    refute @i.key_already_here?({"shirt" => {"quantity" => 50, "cost" => 15}})
+    assert @i.key_already_here?({"pants" => {"quantity" => 50, "cost" => 15}})
   end
 
   def test_it_can_add_multiple_shirt_quantities
@@ -35,5 +47,4 @@ class InventoryTest < Minitest::Test
     @i.record_item(item2)
     assert_equal 60, @i.items['shirt']['quantity']
   end
-
 end
