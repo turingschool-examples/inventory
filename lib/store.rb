@@ -1,5 +1,4 @@
 require './lib/inventory'
-require 'pry'
 
 class Store
 
@@ -33,16 +32,19 @@ class Store
 
   def amount_sold(item)
     return 0 if stock_check(item).nil? || stock_check(item).count < 2
+    subtract_quantities(item)
+  end
+
+  def subtract_quantities(item)
     quantities(item).reduce do |total, quantity|
       total -= quantity
     end
   end
 
   def find_cost(item)
-    costs = inventory_record.map do |inventory|
+    inventory_record.map do |inventory|
       inventory.item_cost(item)
-    end
-    costs.compact[0]
+    end.compact[0]
   end
 
   def us_order_num(order)
