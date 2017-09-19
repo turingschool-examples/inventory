@@ -17,7 +17,7 @@ class Store
   end
 
   def stock_check(item)
-    inventory_record.map {|inv| inv.check_inventory(item)}
+    @inventory_record.map {|inv| inv.check_inventory(item)}
   end
 
   def amount_sold(item)
@@ -26,15 +26,15 @@ class Store
   end
 
   def us_order(item)
-    item.map {|item, value| cost(item) * value}.sum
+    item.map {|item, val| cost(item) * val}.reduce(&:+)
   end
 
   def print_us_order(item)
-    return "$#{us_order(item)}"    
+    "$#{us_order(item)}"    
   end
 
   def cost(item)
-    inventory_record.flat_map {|inv| inv.item_cost(item)}[0]
+    @inventory_record.flat_map {|inv| inv.item_cost(item)}.first
   end
 
   def brazilian_order(item)

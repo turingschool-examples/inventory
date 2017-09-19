@@ -1,5 +1,6 @@
 require 'date'
 class Inventory
+
   attr_reader :date, :items
 
   def initialize(date)
@@ -22,6 +23,6 @@ class Inventory
   end
 
   def item_cost(item)
-    items.each {|key, value| return value["cost"] if key == item}
+    items.each {|key, val| return val["cost"] if key == item}
   end
 end
