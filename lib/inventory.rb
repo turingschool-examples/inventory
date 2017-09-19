@@ -15,12 +15,14 @@ class Inventory
     items.each do |key, value|
       return value if key == item
     end
+    nil
   end
 
   def item_cost(item)
     items.each do |key, value|
       return value["cost"] if key == item
     end
+    nil
   end
 
 end

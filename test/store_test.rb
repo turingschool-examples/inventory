@@ -73,7 +73,7 @@ class StoreTest < Minitest::Test
     assert_equal [{"quantity" => 20, "cost" => 20}, {"quantity" => 15, "cost" => 20}], ace.stock_check('hammer')
   end
 
-  def test_quantities
+  def test_quantities_returns_all_inventory_quantities
     ace = Store.new("Ace", "834 2nd St", "Hardware")
 
     inventory3 = Inventory.new(Date.new(2017, 9, 16))
