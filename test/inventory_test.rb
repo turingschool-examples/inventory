@@ -31,4 +31,13 @@ class InventoryTest < Minitest::Test
     assert_equal 1, inventory1.items.count
     assert_equal ({"shirt" => {"quantity" => 50, "cost" => 15}}), inventory1.items
   end
+
+  def test_invtory_stores_items_with_updated_quantity
+    inventory1 = Inventory.new(Date.new(2017, 9, 18))
+    inventory1.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
+    inventory1.record_item({"shirt" => {"quantity" => 10, "cost" => 15}})
+
+
+    assert_equal ({"shirt" => {"quantity" => 60, "cost" => 15}}), inventory1.items
+  end
 end
