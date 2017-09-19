@@ -41,14 +41,31 @@ class StoreTest < Minitest::Test
     assert_equal inventory, store.inventory_record[-1]
   end
 
+  def test_stock_check_returns_nil_when_item_is_not_recorded
+    store = Store.new("Ace", "834 2nd St", "Hardware")
+    assert_nil store.stock_check("shirt")
+  end
+
   def test_stock_check_returns_quantity_and_cost_of_available_item
     inventory = Inventory.new(Time.now)
     shirt_data = { "quantity" => 1, "cost" => 2 }
     inventory.record_item({ "shirt" => shirt_data })
-    
+
     store = Store.new("Ace", "834 2nd St", "Hardware")
     store.add_inventory(inventory)
     assert_equal shirt_data, store.stock_check("shirt")
+  end
+
+  def test_stock_check_adds_quantity_of_same_item_in_multiple_inventories
+    inventory = Inventory.new(Time.now)
+    inventory.record_item({ "shirt" => { "quantity" => 1, "cost" => 2 } })
+
+    store = Store.new("Ace", "834 2nd St", "Hardware")
+    store.add_inventory(inventory)
+    store.add_inventory(inventory)
+
+    expected = { "quantity" => 2, "cost" => 2 }
+    assert_equal expected, store.stock_check("shirt")
   end
 
 end
