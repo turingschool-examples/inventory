@@ -1,5 +1,4 @@
 require './lib/inventory'
-require 'pry'
 
 class Store
 
@@ -31,11 +30,14 @@ class Store
   end
 
   def determine_quantities(item)
-    invoices_with_item = @inventory_record.find_all do |inv|
-      inv.items.keys.include?(item)
-    end
-    invoices_with_item.map do |inv|
+    list_invoices_with_item(item).map do |inv|
       inv.items[item]
+    end
+  end
+
+  def list_invoices_with_item(item)
+    @inventory_record.find_all do |inv|
+      inv.items.keys.include?(item)
     end
   end
 
