@@ -25,16 +25,13 @@ class InventoryTest < Minitest::Test
     item = {"shirt" => {"quantity" => 50, "cost" => 15}}
     @i.record_item(item)
     assert_equal 1, @i.items.length
-    require "pry"; binding.pry
   end
 
   def test_it_can_add_multiple_shirt_quantities
     item1 = {"shirt" => {"quantity" => 50, "cost" => 15}}
     item2 = {"shirt" => {"quantity" => 10, "cost" => 15}}
     @i.record_item(item1)
-    require "pry"; binding.pry
     @i.record_item(item2)
-require "pry"; binding.pry
   end
 
 end
