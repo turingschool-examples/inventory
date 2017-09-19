@@ -108,4 +108,32 @@ class StoreTest < Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_us_order_amount_returns_us_numeric_total_of_order
+    hobby_town = Store.new("Hobby Town", "894 Bee St", "Hobby")
+    inventory5 = Inventory.new(Date.new(2017, 3, 10))
+    inventory5.record_item({"miniature orc" => {"quantity" => 2000, "cost" => 20}})
+    inventory5.record_item({"fancy paint brush" => {"quantity" => 200, "cost" => 20}})
+    hobby_town.add_inventory(inventory5)
+
+
+    actual = hobby_town.us_order_amount({"miniature orc" => 30, "fancy paint brush" => 1})
+    expected = 620
+
+    assert_equal expected, actual
+  end
+
+  def test_brazilian_order_calculates_total_of_order_in_brazilian_dollars
+    hobby_town = Store.new("Hobby Town", "894 Bee St", "Hobby")
+    inventory5 = Inventory.new(Date.new(2017, 3, 10))
+    inventory5.record_item({"miniature orc" => {"quantity" => 2000, "cost" => 20}})
+    inventory5.record_item({"fancy paint brush" => {"quantity" => 200, "cost" => 20}})
+    hobby_town.add_inventory(inventory5)
+
+
+    actual = hobby_town.brazilian_order({"miniature orc" => 30, "fancy paint brush" => 1})
+    expected = "R$1909.60"
+
+    assert_equal expected, actual
+  end
+
 end

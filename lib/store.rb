@@ -1,3 +1,5 @@
+require 'bigdecimal'
+
 class Store
 
   attr_reader :name,
@@ -45,18 +47,23 @@ class Store
   end
 
   def us_order(order)
-    # total = 0
-    # order.each_pair do |item, quantity|
-    #   inventory = find_inventories_with_item(item).first
-    #   total += (inventory.items[item]["cost"] * quantity)
-    # end
-    total = order.reduce(0) do |total, pair|
+    total = us_order_amount(order)
+    "$#{total}"
+  end
+
+  def us_order_amount(order)
+    order.reduce(0) do |total, pair|
       item = pair.first
       quantity = pair.last
       inventory = find_inventories_with_item(item).first
       total += (inventory.items[item]["cost"] * quantity)
     end
-    "$#{total}"
+  end
+
+  def brazilian_order(order)
+    us_total = us_order_amount(order)
+    br_total = (us_total * 3.08).round(2)
+    "R#{br_total}"
   end
 
 end
