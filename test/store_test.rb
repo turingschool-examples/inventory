@@ -75,9 +75,9 @@ class StoreTest < Minitest::Test
   end
 
   def test_store_can_determine_sold_count    
-    inventory3.record_item({"hammer" => {"quantity" => 20, "cost" => 20}})
+    inventory3.record_item({"hammer"    => {"quantity" => 20, "cost" => 20}})
     inventory4.record_item({"mitre saw" => {"quantity" => 10, "cost" => 409}})
-    inventory4.record_item({"hammer" => {"quantity" => 15, "cost" => 20}})
+    inventory4.record_item({"hammer"    => {"quantity" => 15, "cost" => 20}})
     
     ace.add_inventory(inventory3)
     ace.add_inventory(inventory4) 
@@ -86,10 +86,10 @@ class StoreTest < Minitest::Test
   end
 
   def test_international_sales
-    inventory5.record_item({"miniature orc" => {"quantity" => 2000, "cost" => 20}})
-    inventory5.record_item({"fancy paint brush" => {"quantity" => 200, "cost" => 20}})
+    inventory5.record_item({"miniature orc"     => {"quantity" => 2000, "cost" => 20}})
+    inventory5.record_item({"fancy paint brush" => {"quantity" => 200, "cost"  => 20}})
     ace.add_inventory(inventory5) 
-    
+
     order = ace.print_us_order({"miniature orc" => 30, "fancy paint brush" => 1})
     
     assert_equal "$620", order
