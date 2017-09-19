@@ -9,7 +9,7 @@ class Inventory
   end
 
   def record_item(items)
-
+  
   end
 
 end
