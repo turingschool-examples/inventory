@@ -27,6 +27,13 @@ class InventoryTest < Minitest::Test
     assert @inventory_1.items.empty?
   end
 
+  def test_record_item_stores_items
+    item_1 = {"shirt" => {"quantity" => 50, "cost" => 15}}
+    inventory_1.record_item(item_1)
+
+    assert_equal item_1, @inventory_1.items
+  end
+
 
 
 end

@@ -8,6 +8,11 @@ class Inventory
     @items = {}
   end
 
+  def record_item(item)
+    @items = item
+  end  
+
+
 
 
 end
