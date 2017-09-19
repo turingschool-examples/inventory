@@ -2,6 +2,7 @@ require "minitest/autorun"
 require "minitest/pride"
 require "./lib/store"
 require "./lib/inventory"
+require 'date'
 
 class StoreTest < Minitest::Test
 
@@ -53,8 +54,8 @@ class StoreTest < Minitest::Test
     acme.add_inventory(inventory2)
 
     assert_equal 2, acme.inventory_record.length
-
-    assert acme.stock_check("shirt")
+    hash = {"quantity"=>50, "cost"=>15}
+    assert_equal hash ,acme.stock_check("shirt")
   end
 
 end

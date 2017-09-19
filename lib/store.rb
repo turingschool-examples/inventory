@@ -17,6 +17,10 @@ class Store
   end
 
   def stock_check(item)
-    inventory_record.hash.select {|k, v| k.include?('shirt')}
+
+    query_items = inventory_record.map do |inventory|
+      inventory.items.select {|k, v| k.include?('shirt')}
+    end
+    query_items[0].values[0]
   end
 end
