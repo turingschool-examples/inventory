@@ -17,11 +17,11 @@ class InventoryTest < Minitest::Test
   end
 
   def test_it_has_items
-    
+
     inventory1 = Inventory.new(Date.new(2017, 9, 18))
     inventory1.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
     inventory1.record_item({"shirt" => {"quantity" => 10, "cost" => 15}})
 
-    assert_equal ({"shirt" => {"quantity" => 50, "cost" => 15}}), inventory1.items
+    assert_equal {"shirt" => {"quantity" => 50, "cost" => 15}, inventory1.items
   end
 end

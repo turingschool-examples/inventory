@@ -2,6 +2,7 @@ require "minitest/autorun"
 require "minitest/pride"
 require "./lib/store"
 require "./lib/inventory"
+require 'pry'
 
 class StoreTest < Minitest::Test
 
@@ -40,5 +41,24 @@ class StoreTest < Minitest::Test
     refute store.inventory_record.empty?
     assert_equal inventory, store.inventory_record[-1]
   end
+  def test_stock_check
+    inventory = Inventory.new(Date.new(2017, 9, 18))
+    inventory.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
+    acme = Store.new("Acme", "324 Main St", "Grocery")
+    acme.add_inventory(inventory)
 
+    assert_equal ({"quantity" => 50, "cost" => 15}), acme.stock_check("shirt")
+  end
+
+  def test_amount_sold
+    acme = Store.new("Acme", "324 Main St", "Grocery")
+    inventory3 = Inventory.new(Date.new(2017, 9, 16))
+    inventory3.record_item({"hammer" => {"quantity" => 20, "cost" => 20}})
+    inventory4 = Inventory.new(Date.new(2017, 9, 18))
+    inventory4.record_item({"mitre saw" => {"quantity" => 10, "cost" => 409}})
+    inventory4.record_item({"hammer" => {"quantity" => 15, "cost" => 20}})
+    ace.add_inventory(inventory3)
+    ace.add_inventory(inventory4)
+
+    
 end

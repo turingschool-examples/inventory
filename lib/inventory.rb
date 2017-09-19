@@ -9,8 +9,8 @@ class Inventory
   end
 
   def record_item(data)
-    @items.merge!(data)
-
-end
-
+    data.each_pair do |key, value|
+      items[key] = value
+    end
+  end
 end

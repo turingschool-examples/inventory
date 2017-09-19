@@ -1,3 +1,4 @@
+require './lib/inventory'
 class Store
 
   attr_reader :name,
@@ -21,9 +22,19 @@ class Store
   end
 
   def stock_check(item)
-    @inventory_record.find{|inventory| inventory[:item] = item }
-  end
+      inventory = stock(item)
+      inventory.items[item]
+    end
 
-  def amount_sold
-    @inventory.
-end
+    def stock(item)
+      inventory_record.find do |inventory|
+        inventory.items[item]
+      end
+    end
+
+    def amount_sold(item)
+      inventory = find_inventory(item)
+      sorted = sort_by_date(inventory)
+      difference(sorted, item)
+    end
+  end
