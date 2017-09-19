@@ -16,4 +16,11 @@ class Store
     @inventory_record << inventory
   end
 
+  def stock_check(string)
+    @inventory_record.map do |inventory|
+      inventory.map do |i|
+        i.include?(string)
+      end
+    end
+  end
 end

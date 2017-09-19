@@ -35,5 +35,16 @@ class InventoryTest < Minitest::Test
     assert_equal expected, inventory1.items
   end
 
+  def test_inventory1_records_2nd_item
+    
+    inventory1 = Inventory.new(Date.new(2017, 9, 18))
+    inventory1.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
+    inventory1.record_item({"shirt" => {"quantity" => 10, "cost" => 15}})
+
+    expected = {"shirt" => {"quantity" => 60, "cost" => 15}}
+
+    assert_equal expected, inventory1.items
+  end
+
 
 end

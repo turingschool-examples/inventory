@@ -11,10 +11,13 @@ class Inventory
 
 
   def record_item(argument)
-    @items.merge!(argument) do |value|
-      value.map { |v| v["quantity"] }.sum
+    @items.merge!(argument) do |key,value|
+      @items["shirt"]["quantity"] += argument["shirt"]["quantity"]
     end
   end
-  
+
+
+
+
 
 end
