@@ -102,6 +102,24 @@ class StoreTest < Minitest::Test
     assert_equal 5, store.amount_sold('hammer')
   end
 
+  def test_it_can_track_the_change_amount_for_across_inventories_that_have_more_than_1_item_recorded
+    store = Store.new("Ace", "834 2nd St", "Hardware")
+    inventory1 = Inventory.new(Date.new(2017, 9, 18))
+    inventory1.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
+    inventory2 = Inventory.new(Date.new(2017, 9, 18))
+    inventory2.record_item({"flies" => {"quantity" => 20, "cost" => 15}})
+    inventory3 = Inventory.new(Date.new(2017, 9, 16))
+    inventory3.record_item({"hammer" => {"quantity" => 20, "cost" => 20}})
+    inventory4 = Inventory.new(Date.new(2017, 9, 18))
+    inventory4.record_item({"mitre saw" => {"quantity" => 10, "cost" => 409}})
+    inventory4.record_item({"hammer" => {"quantity" => 15, "cost" => 20}})
 
+    store.add_inventory(inventory1)
+    store.add_inventory(inventory2)
+    store.add_inventory(inventory3)
+    store.add_inventory(inventory4)
+
+    assert_equal 5, store.amount_sold('hammer')
+  end
 
 end
