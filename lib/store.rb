@@ -1,3 +1,5 @@
+require "./lib/inventory"
+
 class Store
 
   attr_reader :name,
@@ -15,5 +17,10 @@ class Store
   def add_inventory(inventory)
     @inventory_record << inventory
   end
+
+  def stock_check(unit)
+    @inventory_record[1].items[unit]
+  end
+
 
 end
