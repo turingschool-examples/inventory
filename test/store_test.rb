@@ -89,4 +89,57 @@ class StoreTest < Minitest::Test
     assert_equal expected, store.stock_check("shirt")
   end
 
+
+  def test_amount_sold_returns_nil_when_no_inventory
+    store = Store.new("Ace", "834 2nd St", "Hardware")
+    assert_nil store.amount_sold("shirt")
+  end
+
+  def test_amount_sold_returns_nil_when_item_is_not_recorded
+    inventory = Inventory.new(Time.now)
+    inventory.record_item({ "shirt" => { "quantity" => 1, "cost" => 2 } })
+    store = Store.new("Ace", "834 2nd St", "Hardware")
+    store.add_inventory(inventory)
+
+    assert_nil store.amount_sold("gloop")
+  end
+
+  def test_amount_sold_returns_0_when_recorded_item_goes_unsold
+    inventory = Inventory.new(Time.now)
+    inventory.record_item({ "shirt" => { "quantity" => 1, "cost" => 2 } })
+    store = Store.new("Ace", "834 2nd St", "Hardware")
+    store.add_inventory(inventory)
+
+    assert_equal 0, store.amount_sold("shirt")
+  end
+
+  def test_amount_sold_returns_inventory_difference_when_item_sold
+    inventory_1 = Inventory.new(Time.now)
+    inventory_2 = Inventory.new(Time.now)
+    inventory_1.record_item({ "shirt" => { "quantity" => 3, "cost" => 2 } })
+    inventory_2.record_item({ "shirt" => { "quantity" => 1, "cost" => 2 } })
+
+    store = Store.new("Ace", "834 2nd St", "Hardware")
+    store.add_inventory(inventory_1)
+    store.add_inventory(inventory_2)
+
+    assert_equal 2, store.amount_sold("shirt")
+  end
+
+  def test_amount_sold_returns_only_most_recent_difference
+    inventory_1 = Inventory.new(Time.now)
+    inventory_2 = Inventory.new(Time.now)
+    inventory_3 = Inventory.new(Time.now)
+    inventory_1.record_item({ "shirt" => { "quantity" => 100, "cost" => 2 } })
+    inventory_2.record_item({ "shirt" => { "quantity" => 3, "cost" => 2 } })
+    inventory_3.record_item({ "shirt" => { "quantity" => 1, "cost" => 2 } })
+
+    store = Store.new("Ace", "834 2nd St", "Hardware")
+    store.add_inventory(inventory_1)
+    store.add_inventory(inventory_2)
+    store.add_inventory(inventory_3)
+
+    assert_equal 2, store.amount_sold("shirt")
+  end
+
 end
