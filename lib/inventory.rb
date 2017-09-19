@@ -11,7 +11,9 @@ class Inventory
 
   def same_item(item)
     @items.merge!(item) do |key, oldval, newval|
-      newval.merge!(oldval){|key, oldval, newval| key == "cost" ? oldval : oldval + newval }
+      newval.merge!(oldval) do |key, oldval, newval|
+         key == "cost" ? oldval : oldval + newval 
+      end
     end
   end
 
