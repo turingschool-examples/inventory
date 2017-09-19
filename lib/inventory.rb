@@ -1,7 +1,8 @@
-
+require "./lib/date"
+require "pry"
 class Inventory
 
-attr_reader :date ,:items, :stock
+attr_reader :date ,:items
 
   def initialize(date)
     @date = date
@@ -13,10 +14,9 @@ attr_reader :date ,:items, :stock
   end
 
   def record_item(item)
-      item.map do |article, amount|
+      hashes = item.each do |article, amount|
         @items[article] = amount
       end
+      hashes
   end
-
-
 end

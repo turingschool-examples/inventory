@@ -3,7 +3,6 @@ require "minitest/pride"
 require './lib/inventory'
 require "./lib/date"
 require "./lib/store"
-require "pry"
 class InventoryTest < Minitest::Test
 
   def test_an_inventory_exists
@@ -22,8 +21,8 @@ class InventoryTest < Minitest::Test
     inventory1 = Inventory.new(Date.new(2017, 9, 18))
     expected = inventory1.items
     actual = {}
-    assert_equal expected, actual
 
+    assert_equal expected, actual
   end
 
 
@@ -71,8 +70,7 @@ class InventoryTest < Minitest::Test
     acme.add_inventory(inventory2)
 
     assert_equal acme.stock_check("shirt"), {"quantity" => 10, "cost" => 15}
-
-   end
+  end
 
 
 end
