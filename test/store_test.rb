@@ -89,4 +89,21 @@ class StoreTest < Minitest::Test
 
   end
 
+  def test_amount_sold_returns_the_difference_from_the_day
+
+    ace = Store.new("Ace", "834 2nd St", "Hardware")
+
+    inventory3 = Inventory.new(Date.new(2017, 9, 16))
+    inventory3.record_item({"hammer" => {"quantity" => 20, "cost" => 20}})
+
+    inventory4 = Inventory.new(Date.new(2017, 9, 18))
+    inventory4.record_item({"mitre saw" => {"quantity" => 10, "cost" => 409}})
+    inventory4.record_item({"hammer" => {"quantity" => 15, "cost" => 20}})
+
+    ace.add_inventory(inventory3)
+    ace.add_inventory(inventory4)
+
+    assert_equal 5, ace.amount_sold("hammer")
+  end
+
 end

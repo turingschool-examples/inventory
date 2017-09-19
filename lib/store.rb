@@ -20,9 +20,9 @@ class Store
   def stock_check(item)
     @inventory_record.find_all do |inventory|
       inventory.items.key?(item)
-      end
+    
     end
-    puts inventory
+
   end
 
 end
