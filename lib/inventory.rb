@@ -8,7 +8,8 @@ class Inventory
     @date = date
   end
 
-  def record_item(inventory_record)
+  def record_item(quantity)
     
   end
+
 end

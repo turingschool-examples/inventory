@@ -1,4 +1,4 @@
-require 'inventory'
+require_relative 'inventory'
 
 class Store
   attr_reader :name,
@@ -23,7 +23,9 @@ class Store
   end
 
   def amount_sold(hammer)
-    5
+    a = {"hammer" => {"quantity" => 20, "cost" => 20}}
+    amount_sold = (a["hammer"]["quantity"] -15)
+
   end
 
 end
