@@ -1,3 +1,4 @@
+require 'pry'
 class Store
 
   attr_reader :name,
@@ -27,8 +28,20 @@ class Store
     end
   end
 
-  def amount_sold
+  def amount_sold(item)
+    inventory = inventory_record.find_all do |inventory|
+      inventory.items[item]
+    end
+    sorted = sort_by_date(inventory)
+    difference(sorted, item)
+  end
 
+  def difference(sorted, item)
+    (sorted.first.items[item]["quantity"] - sorted.last.items[item]["quantity"])
+  end
+
+  def sort_by_date(inventory)
+    inventory.sort_by {|inventory| inventory.date}
   end
 
 end
