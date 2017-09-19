@@ -34,4 +34,13 @@ class Store
     next_to_last_inventory.retrieve_quantity(item) - last_inventory.retrieve_quantity(item)
   end
 
+  def us_order(order_info)
+    items = order_info.keys
+    @inventory_record.map do |inventory|
+      inventory.retrieve_multiple_item_costs
+    end
+
+
+  end
+
 end
