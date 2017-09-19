@@ -12,7 +12,7 @@ class Inventory
   def same_item(item)
     @items.merge!(item) do |key, oldval, newval|
       newval.merge!(oldval) do |key, oldval, newval|
-         key == "cost" ? oldval : oldval + newval 
+         key == "cost" ? oldval : oldval + newval
       end
     end
   end
@@ -24,13 +24,8 @@ class Inventory
     elsif same_item(item)
     else
     @items.merge(item)
-
     end
-
   end
-
-
-
 
 
 end
