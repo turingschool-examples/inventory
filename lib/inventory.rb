@@ -10,7 +10,9 @@ class Inventory
   end
 
   def record_item(item_info)
-    @items = @items.merge(item_info)
+    @items.reduce({}) do |sum, item_info|
+
+    @items = @items.merge(item_info) {|key, old_value, new_value| old_value + new_value}
   end
 
 

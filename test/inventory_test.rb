@@ -28,6 +28,15 @@ class InventoryTest < Minitest::Test
     assert_equal ({"shirt" => {"quantity" => 50, "cost" => 15}}), @inventory1.items
   end
 
+  def test_it_can_record_more_items
+    @inventory1.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
+    @inventory1.record_item({"shirt" => {"quantity" => 10, "cost" => 15}})
+
+    assert_equal ({"shirt" => {"quantity" => 60, "cost" => 15}}), @inventory1.items
+  end
+
+
+
 
 
 
