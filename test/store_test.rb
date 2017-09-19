@@ -1,8 +1,5 @@
-require "minitest/autorun"
-require "minitest/pride"
-require "date"
-require "./lib/store"
-require "./lib/inventory"
+require './test/test_helper'
+require './lib/store'
 
 class StoreTest < Minitest::Test
 

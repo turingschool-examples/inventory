@@ -1,7 +1,4 @@
-require "minitest/autorun"
-require "minitest/pride"
-require "date"
-require './lib/inventory'
+require './test/test_helper'
 
 class InventoryTest < Minitest::Test
 
