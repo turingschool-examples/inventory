@@ -2,6 +2,7 @@ require "minitest/autorun"
 require "minitest/pride"
 require "./lib/store"
 require "./lib/inventory"
+require 'date'
 
 class StoreTest < Minitest::Test
 
@@ -31,7 +32,7 @@ class StoreTest < Minitest::Test
 
   def test_store_can_add_inventories
     store = Store.new("Ace", "834 2nd St", "Hardware")
-    inventory = Inventory.new
+    inventory = Inventory.new(Date.new(2017, 9, 18))
 
     assert store.inventory_record.empty?
 
@@ -39,6 +40,16 @@ class StoreTest < Minitest::Test
 
     refute store.inventory_record.empty?
     assert_equal inventory, store.inventory_record[-1]
+  end
+
+  def test_inventory_record_is_empty
+    inventory2 = Inventory.new(Date.new(2017, 9, 18))
+    inventory2.record_item({"shoes" => {"quantity" => 40, "cost" => 30}})
+
+    acme = Store.new("Acme", "324 Main St", "Grocery")
+
+    assert_equal [], acme.inventory_record
+
   end
 
 end

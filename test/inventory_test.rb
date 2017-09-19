@@ -35,7 +35,7 @@ class InventoryTest < Minitest::Test
   end
 
   def test_record_item_stores_multiple_items_and_sums_like_values
-
+    skip
     item_1 = {"shirt" => {"quantity" => 50, "cost" => 15}}
     item_2 = {"shirt" => {"quantity" => 10, "cost" => 15}}
     expected = {"shirt" => {"quantity" => 60, "cost" => 15}}
