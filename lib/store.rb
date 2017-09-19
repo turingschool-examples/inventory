@@ -16,4 +16,7 @@ class Store
     @inventory_record << inventory
   end
 
+  def stock_check(item)
+    inventory_record.hash.select {|k, v| k.include?('shirt')}
+  end
 end
