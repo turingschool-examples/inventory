@@ -131,6 +131,18 @@ class StoreTest < Minitest::Test
     assert_equal 5, ace.amount_sold("hammer")
   end
 
+  def test_store_cannot_find_cost_for_item_it_does_not_have
+    store = Store.new("Ace", "834 2nd St", "Hardware")
+
+    inventory = Inventory.new(Date.new(2017, 9, 18))
+
+    inventory.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
+
+    store.add_inventory(inventory)
+
+    assert_nil store.find_cost("kitten jacket")
+  end
+
   def test_store_can_find_cost_of_item
     store = Store.new("Ace", "834 2nd St", "Hardware")
 
