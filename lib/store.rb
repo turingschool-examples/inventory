@@ -46,8 +46,17 @@ class Store
 
   def us_order(order)
     purchases = order.keys
-    
+    quantity = order.values
+    total = nil
+    inventory_record.find do |inventory|
+      cost1 = inventory.items[purchases[0]]["cost"] * quantity[0]
+      cost2 = inventory.items[purchases[1]]["cost"] * quantity[1]
+      total = cost1 + cost2
     end
+    total = "$#{total.to_s}"
   end
 
+  def brazillian_order
+    
+  end
 end
