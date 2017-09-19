@@ -42,21 +42,6 @@ class InventoryTest < Minitest::Test
     inventory1.record_item(other_arg)
     expected  = {"shirt" => {"quantity" => 60, "cost" => 15}}
 
-    # assert_equal expected, inventory1.items
+    assert_equal expected, inventory1.items
   end
-
 end
-
-
-# Iteration 1: Inventory
-
-# inventory1.items 
-# => {} 
-
-# inventory1.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
-# inventory1.items 
-# => {"shirt" => {"quantity" => 50, "cost" => 15}}
-
-# inventory1.record_item({"shirt" => {"quantity" => 10, "cost" => 15}})
-# inventory1.items 
-# => {"shirt" => {"quantity" => 60, "cost" => 15}}
