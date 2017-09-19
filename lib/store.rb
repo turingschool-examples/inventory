@@ -36,6 +36,14 @@ class Store
     previous - current
   end
 
+  def item_subtotal(name, quantity)
+    quantity * current_inventory.cost(name)
+  end
 
+  def us_order(order)
+    order.reduce(0) do |total, (item_name, quantity)|
+      total + item_subtotal(item_name, quantity)
+    end
+  end
 
 end
