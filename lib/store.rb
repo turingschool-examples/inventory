@@ -45,14 +45,22 @@ class Store
     costs.compact[0]
   end
 
-  def us_order(order)
+  def us_order_num(order)
     order.map do |key, value|
       find_cost(key) * value
     end.sum
   end
 
+  def us_order(order)
+    "$#{us_order_num(order)}"
+  end
+
+  def brazilian_order_num(order)
+    (us_order_num(order).to_f * 3.08).round(2)
+  end
+
   def brazilian_order(order)
-    (us_order(order).to_f * 3.08).floor(2)
+    "R$#{'%.2f' % brazilian_order_num(order)}"
   end
 
 end

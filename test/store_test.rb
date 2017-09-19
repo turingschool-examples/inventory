@@ -121,7 +121,8 @@ class StoreTest < Minitest::Test
     inventory5.record_item({"fancy paint brush" => {"quantity" => 200, "cost" => 20}})
     hobby_town.add_inventory(inventory5)
 
-    assert_equal 620.00, hobby_town.us_order({"miniature orc" => 30, "fancy paint brush" => 1})
+    assert_equal 620, hobby_town.us_order_num({"miniature orc" => 30, "fancy paint brush" => 1})
+    assert_equal '$620', hobby_town.us_order({"miniature orc" => 30, "fancy paint brush" => 1})
   end
 
   def test_store_can_calculate_brazillian_order
@@ -131,7 +132,8 @@ class StoreTest < Minitest::Test
     inventory5.record_item({"fancy paint brush" => {"quantity" => 200, "cost" => 20}})
     hobby_town.add_inventory(inventory5)
 
-    assert_equal 1909.60, hobby_town.brazilian_order({"miniature orc" => 30, "fancy paint brush" => 1})
+    assert_equal 1909.60, hobby_town.brazilian_order_num({"miniature orc" => 30, "fancy paint brush" => 1})
+    assert_equal 'R$1909.60', hobby_town.brazilian_order({"miniature orc" => 30, "fancy paint brush" => 1})
   end
 
 end
