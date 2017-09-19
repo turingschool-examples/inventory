@@ -43,4 +43,11 @@ class Store
     stock = find_all_items_in_inventory(item)
     find_difference(stock, item)
   end
+
+  def us_order(order)
+    purchases = order.keys
+    
+    end
+  end
+
 end
