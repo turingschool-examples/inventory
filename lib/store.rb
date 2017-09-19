@@ -23,9 +23,11 @@ class Store
   end
 
   def amount_sold(hammer)
-    a = {"hammer" => {"quantity" => 20, "cost" => 20}}
-    amount_sold = (a["hammer"]["quantity"] -15)
+    item_a = {"hammer" => {"quantity" => 20, "cost" => 20}}
+    amount_sold = (item_a["hammer"]["quantity"] -15)
+  end
 
+  def us_order(items)
   end
 
 end
