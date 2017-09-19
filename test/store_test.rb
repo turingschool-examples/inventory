@@ -70,6 +70,7 @@ class StoreTest < Minitest::Test
     ace.add_inventory(inventory3)
     ace.add_inventory(inventory4)
 
+    assert_equal [{"quantity" => 20, "cost" => 20}, {"quantity" => 15, "cost" => 20}], ace.stock_check('hammer')
   end
 
   def test_quantities
@@ -82,9 +83,12 @@ class StoreTest < Minitest::Test
     inventory4.record_item({"mitre saw" => {"quantity" => 10, "cost" => 409}})
     inventory4.record_item({"hammer" => {"quantity" => 15, "cost" => 20}})
 
+    ace.add_inventory(inventory3)
+    ace.add_inventory(inventory4)
+
     assert_equal [20, 15], ace.quantities("hammer")
   end
-
+  
   def test_store_can_find_amount_sold
     ace = Store.new("Ace", "834 2nd St", "Hardware")
 

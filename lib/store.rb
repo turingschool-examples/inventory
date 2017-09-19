@@ -1,4 +1,5 @@
 require './lib/inventory'
+require 'pry'
 
 class Store
 
@@ -25,16 +26,15 @@ class Store
   end
 
   def quantities(item)
-    puts stock_check(item).inspect
     stock_check(item).map do |stock_list|
-      stock_list['quantity']
+      stock_list["quantity"]
     end
   end
 
   def amount_sold(item)
     return 0 if stock_check(item).nil? || stock_check(item).count < 2
-    stock_check(item).reduce do |total, stock_list|
-      total -= stock_list['quantity']
+    quantities(item).reduce do |total, quantity|
+      total -= quantity
     end
   end
 
