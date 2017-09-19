@@ -56,6 +56,7 @@ class Store
       item = pair.first
       quantity = pair.last
       inventory = find_inventories_with_item(item).first
+
       total += (inventory.items[item]["cost"] * quantity)
     end
   end
