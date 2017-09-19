@@ -36,13 +36,15 @@ class Store
     previous - current
   end
 
-  def item_subtotal(name, quantity)
-    quantity * current_inventory.cost(name)
+  def item_subtotal(name, amount_wanted)
+    data = stock_check(name)
+    actually_bought = [amount_wanted, data["quantity"]].min
+    actually_bought * data["cost"]
   end
 
   def us_order(order)
-    order.reduce(0) do |total, (item_name, quantity)|
-      total + item_subtotal(item_name, quantity)
+    order.reduce(0) do |total, (item_name, amount_wanted)|
+      total + item_subtotal(item_name, amount_wanted)
     end
   end
 
