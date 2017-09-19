@@ -51,4 +51,8 @@ class Store
     end.sum
   end
 
+  def brazilian_order(order)
+    (us_order(order).to_f * 3.08).floor(2)
+  end
+
 end
