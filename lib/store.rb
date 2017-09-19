@@ -63,7 +63,8 @@ class Store
 
   def brazillian_order(order)
     us_total = calculate_us_dollars(order)
-    amount = (us_total.to_f * 3.08).round(2)
-    "R$#{amount.to_s}0"
+    amount = (us_total.to_f * 3.08)
+    amount = sprintf('%#g', amount)
+    "R$#{amount}"
   end
 end
