@@ -99,4 +99,31 @@ class StoreTest < Minitest::Test
     assert_equal 1909.60, ace.brazilian_order({"miniature orc" => 30, "fancy paint brush" => 1})
   end
 
+  def test_difference_returns_amount_sold
+    inventory3 = Inventory.new(Date.new(2017, 9, 16))
+    inventory4 = Inventory.new(Date.new(2017, 9, 18))
+    inventory3.record_item({"hammer" => {"quantity" => 20, "cost" => 20}})
+    inventory4.record_item({"mitre saw" => {"quantity" => 10, "cost" => 409}})
+    inventory4.record_item({"hammer" => {"quantity" => 15, "cost" => 20}})
+    ace = Store.new("Ace", "834 2nd St", "Hardware")
+    ace.add_inventory(inventory3)
+    ace.add_inventory(inventory4)
+
+    assert_equal 5, ace.difference([inventory3, inventory4], "hammer")
+  end
+
+  def test_if_find_inventory_returns_array
+    inventory3 = Inventory.new(Date.new(2017, 9, 16))
+    inventory4 = Inventory.new(Date.new(2017, 9, 18))
+    inventory3.record_item({"hammer" => {"quantity" => 20, "cost" => 20}})
+    inventory4.record_item({"mitre saw" => {"quantity" => 10, "cost" => 409}})
+    inventory4.record_item({"hammer" => {"quantity" => 15, "cost" => 20}})
+    ace = Store.new("Ace", "834 2nd St", "Hardware")
+    ace.add_inventory(inventory3)
+    ace.add_inventory(inventory4)
+
+    assert_equal Array, ace.find_inventory("hammer").class
+    assert_equal Inventory, ace.find_inventory("hammer").first.class
+  end
+
 end
