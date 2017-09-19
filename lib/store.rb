@@ -1,4 +1,4 @@
-require 'pry'
+require 'bigdecimal'
 class Store
 
   attr_reader :name,
@@ -29,11 +29,15 @@ class Store
   end
 
   def amount_sold(item)
-    inventory = inventory_record.find_all do |inventory|
-      inventory.items[item]
-    end
+    inventory = find_inventory(item)
     sorted = sort_by_date(inventory)
     difference(sorted, item)
+  end
+
+  def find_inventory(item)
+    inventory_record.find_all do |inventory|
+      inventory.items[item]
+    end
   end
 
   def difference(sorted, item)
@@ -44,6 +48,27 @@ class Store
     inventory.sort_by {|inventory| inventory.date}
   end
 
+  def us_order(order)
+    inv = order_items(order)
+    total = 0
+    total += us_conversion(inv.flatten.first, order)
+    total
+  end
 
+  def us_conversion(inventory, order)
+    total = 0
+    order.each_pair do |key, value|
+      # binding.pry
+      total += (inventory.items[key]["cost"] * value)
+    end
+    total
+  end
 
+  def brazilian_order(order)
+
+  end
+
+  def order_items(order)
+    order.keys.map {|key| find_inventory(key)}
+  end
 end

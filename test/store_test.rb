@@ -5,11 +5,6 @@ require "./lib/inventory"
 require "date"
 
 class StoreTest < Minitest::Test
-  attr_reader :acme
-
-  def setup
-    @acme = Store.new("Acme", "324 Main St", "Grocery")
-  end
 
   def test_store_has_a_name
     store = Store.new("Hobby Town", "894 Bee St", "Hobby")
@@ -48,6 +43,7 @@ class StoreTest < Minitest::Test
   end
 
   def test_if_stock_check_returns_item
+    acme = Store.new("Acme", "324 Main St", "Grocery")
     inventory1 = Inventory.new(Date.new(2017, 9, 18))
     inventory2 = Inventory.new(Date.new(2017, 9, 18))
     inventory1.record_item({"shirt" => {"quantity" => 60, "cost" => 15}})
@@ -72,12 +68,13 @@ class StoreTest < Minitest::Test
   end
 
   def test_if_us_order_returns_amount_in_us_dollars
-    hobby_town = Store.new("Hobby Town", "894 Bee St", "Hobby")
+    ace = Store.new("Ace", "834 2nd St", "Hardware")
     inventory5 = Inventory.new(Date.new(2017, 3, 10))
     inventory5.record_item({"miniature orc" => {"quantity" => 2000, "cost" => 20}})
     inventory5.record_item({"fancy paint brush" => {"quantity" => 200, "cost" => 20}})
+    ace.add_inventory(inventory5)
 
-    assert_equal $620, ace.us_order({"miniature orc" => 30, "fancy paint brush" => 1})
+    assert_equal 620, ace.us_order({"miniature orc" => 30, "fancy paint brush" => 1})
   end
 
   def test_if_brazilian_order_returns_amount_in_brazil_peso
@@ -86,7 +83,7 @@ class StoreTest < Minitest::Test
     inventory5.record_item({"miniature orc" => {"quantity" => 2000, "cost" => 20}})
     inventory5.record_item({"fancy paint brush" => {"quantity" => 200, "cost" => 20}})
 
-    assert_equal R$1909.60, ace.brazilian_order({"miniature orc" => 30, "fancy paint brush" => 1})
+    assert_equal 1909.60, ace.brazilian_order({"miniature orc" => 30, "fancy paint brush" => 1})
   end
 
 end
