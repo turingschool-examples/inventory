@@ -83,5 +83,15 @@ class StoreTest < Minitest::Test
   end
 
 
+def test_for_total_cost
+  hobby_town = Store.new("Hobby Town", "894 Bee St", "Hobby")
+  inventory5 = Inventory.new(Date.new(2017, 3, 10))
+  inventory5.record_item({"miniature orc" => {"quantity" => 2000, "cost" => 20}})
+  inventory5.record_item({"fancy paint brush" => {"quantity" => 200, "cost" => 20}})
+  ace.us_order({"miniature orc" => 30, "fancy paint brush" => 1})
+
+  assert_equal "$620", ace.us_order({"miniature orc" => 30, "fancy paint brush" => 1})
+end
+
 
 end

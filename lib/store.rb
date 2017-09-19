@@ -21,8 +21,13 @@ class Store
   end
 
   def amount_sold(item)
-    @inventory_record
-    binding.pry
+    all = @inventory_record.map do |inv|
+      inv.items[item]
+    end
+    values = all.map do |h|
+      h.values[0]
+    end
+    difference = values[0] - values[1]
   end
 
 end
