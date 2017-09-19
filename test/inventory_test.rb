@@ -17,4 +17,9 @@ class InventoryTest < Minitest::Test
     assert_instance_of Date, @inventory.date
   end
 
+  def test_it_starts_with_empty_items
+    assert_instance_of Hash, @inventory.items
+    assert @inventory.items.empty?
+  end
+
 end
