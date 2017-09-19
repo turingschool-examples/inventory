@@ -9,8 +9,8 @@ class Inventory
   end
 
   def record_item(item)
-    # Add the item to the inventory hash 
-    items.merge!(item) {|k,v1,v2| v1+v2}
+    items.merge!(item) do |_, old_hsh, new_hsh|
+      old_hsh.merge(new_hsh) { |_, old_val, new_val| old_val + new_val }
+    end
   end
-
 end

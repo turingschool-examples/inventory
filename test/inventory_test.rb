@@ -27,4 +27,19 @@ class InventoryTest < Minitest::Test
     assert_equal 1, inv.items.count
   end
 
+  def test_it_can_record_a_second_item
+    inv.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
+    inv.record_item({"pants" => {"quantity" => 50, "cost" => 15}})
+
+    assert_equal 2, inv.items.count
+  end
+
+  def test_it_can_add_quantities_and_costs
+    inv.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
+    inv.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
+
+    assert_equal 100, inv.items["shirt"]["quantity"]
+    assert_equal 30, inv.items["shirt"]["cost"]
+  end
+
 end

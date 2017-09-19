@@ -1,3 +1,6 @@
+require './lib/inventory'
+require 'pry'
+
 class Store
 
   attr_reader :name,
@@ -14,6 +17,11 @@ class Store
 
   def add_inventory(inventory)
     @inventory_record << inventory
+  end
+
+  def stock_check(item)
+    @inventory_record.items
+    binding.pry
   end
 
 end
