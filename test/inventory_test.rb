@@ -22,17 +22,18 @@ class InventoryTest < Minitest::Test
   end
 
   def test_it_can_record_items
-    expected = inventory1.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
-    actual = {"shirt" => {"quantity" => 50, "cost" => 15}}
-    assert_equal expected, actual
+    inventory1.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
+    input = assert inventory1.items.
+    output = {"shirt" => {"quantity" => 50, "cost" => 15}}
+    assert_equal output, input
   end
 
   def test_it_can_take_multiple_items
     inventory1.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
     inventory1.record_item({"shirt" => {"quantity" => 10, "cost" => 15}})
-    
-    actual = ({"shirt" => {"quantity" => 60, "cost" => 15}})
-    assert_equal  actual, inventory1.items.count
+
+    output = ({"shirt" => {"quantity" => 60, "cost" => 15}})
+    assert_equal  output, inventory1.items
   end
 
 end
