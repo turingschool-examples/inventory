@@ -58,6 +58,25 @@ class StoreTest < Minitest::Test
     assert_equal hash ,acme.stock_check("shirt")
   end
 
+  def test_it_can_sort_inventories_by_date
+    ace = Store.new("Ace", "834 2nd St", "Hardware")
+    inventory1 = Inventory.new(Date.new(2017, 9, 13))
+    inventory2 = Inventory.new(Date.new(2017, 9, 14))
+    inventory3 = Inventory.new(Date.new(2017, 9, 16))
+    inventory4 = Inventory.new(Date.new(2017, 9, 18))
+    ace.add_inventory(inventory1)
+    ace.add_inventory(inventory2)
+    ace.add_inventory(inventory3)
+    ace.add_inventory(inventory4)
+
+    sorted_inventories = ace.sort_inventory_by_date
+
+    assert_equal 18, sorted_inventories[0].date.day
+    assert_equal 16, sorted_inventories[1].date.day
+
+
+  end
+
   def test_it_can_tell_how_much_sold
     ace = Store.new("Ace", "834 2nd St", "Hardware")
 

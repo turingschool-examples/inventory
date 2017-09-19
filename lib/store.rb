@@ -25,7 +25,6 @@ class Store
   end
 
   def amount_sold(item_name)
-    #take two most recent inventory dates
     sorted_inventories = sort_inventory_by_date
     newest_inventory = sorted_inventories[0]
     second_newest_inventory = sorted_inventories[1]
