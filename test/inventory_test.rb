@@ -22,4 +22,12 @@ class InventoryTest < Minitest::Test
     assert @inventory.items.empty?
   end
 
+  def test_it_can_record_items
+    @inventory.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
+    @inventory.items
+    assert_equal "shirt", @inventory.items.keys.first
+    assert_equal 50, @inventory.items['shirt']['quantity']
+    assert_equal 15, @inventory.items['shirt']['cost']
+    assert_includes ["quantity" => 50, "cost" => 15], @inventory.items['shirt']
+  end
 end

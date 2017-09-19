@@ -8,4 +8,8 @@ class Inventory
     @items = {}
   end
 
+  def record_item(item_info)
+    @items.merge!(item_info)
+  end
+
 end
