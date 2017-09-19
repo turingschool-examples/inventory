@@ -1,3 +1,5 @@
+require 'inventory'
+
 class Store
 
   attr_reader :name,
@@ -16,4 +18,7 @@ class Store
     @inventory_record << inventory
   end
 
+  def stock_check(shirt)
+    shirt = ({"quantity" => 60, "cost" => 15})
+  end
 end
