@@ -17,10 +17,18 @@ class Store
   end
 
   def stock_check(item)
-    inventory = inventory_record.find do |inventory|
-      thing = inventory.items[item]
-    end
+    inventory = stock(item)
     inventory.items[item]
+  end
+
+  def stock(item)
+    inventory_record.find do |inventory|
+      inventory.items[item]
+    end
+  end
+
+  def amount_sold
+
   end
 
 end
