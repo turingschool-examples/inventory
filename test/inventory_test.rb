@@ -5,6 +5,7 @@ require 'date'
 
 class InventoryTest < Minitest::Test
   attr_reader :inventory1
+  
   def setup
     @inventory1 = Inventory.new(Date.new(2017, 9, 18))
   end

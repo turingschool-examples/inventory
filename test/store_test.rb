@@ -4,45 +4,42 @@ require "./lib/store"
 require "./lib/inventory"
 
 class StoreTest < Minitest::Test
+  attr_reader :hobby_town, :ace, :acme 
+  
+  def setup
+    @hobby_town = Store.new("Hobby Town", "894 Bee St", "Hobby")
+    @ace        = Store.new("Ace", "834 2nd St", "Hardware")
+    @acme       = Store.new("Acme", "324 Main St", "Grocery")
+  end
 
   def test_store_has_a_name
-    store = Store.new("Hobby Town", "894 Bee St", "Hobby")
-
-    assert_equal "Hobby Town", store.name
+    assert_equal "Hobby Town", hobby_town.name
   end
 
   def test_store_has_a_type
-    store = Store.new("Ace", "834 2nd St", "Hardware")
-
-    assert_equal "Hardware", store.type
+    assert_equal "Hardware", ace.type
   end
 
   def test_store_has_a_location
-    store = Store.new("Acme", "324 Main St", "Grocery")
-
-    assert_equal "324 Main St", store.address
+    assert_equal "324 Main St", acme.address
   end
 
   def test_store_tracks_inventories
-    store = Store.new("Ace", "834 2nd St", "Hardware")
-
-    assert_equal [], store.inventory_record
+    assert_equal [], ace.inventory_record
   end
 
   def test_store_can_add_inventories
-    store = Store.new("Ace", "834 2nd St", "Hardware")
     inventory = Inventory.new(Date.new(2017, 9, 18))
 
-    assert store.inventory_record.empty?
+    assert ace.inventory_record.empty?
 
-    store.add_inventory(inventory)
+    ace.add_inventory(inventory)
 
-    refute store.inventory_record.empty?
-    assert_equal inventory, store.inventory_record[-1]
+    refute ace.inventory_record.empty?
+    assert_equal inventory, ace.inventory_record[-1]
   end
 
   def test_store_can_have_nventory
-    acme = Store.new("Acme", "324 Main St", "Grocery")
     inventory1 = Inventory.new(Date.new(2017, 9, 18))
     inventory2 = Inventory.new(Date.new(2017, 9, 18))
     inventory2.record_item({"shoes" => {"quantity" => 40, "cost" => 30}})
@@ -56,7 +53,6 @@ class StoreTest < Minitest::Test
   end
 
   def test_store_can_check_stock 
-    acme = Store.new("Acme", "324 Main St", "Grocery")
     inventory1 = Inventory.new(Date.new(2017, 9, 18))
     inventory2 = Inventory.new(Date.new(2017, 9, 18))
     inventory1.record_item({"shirt" => {"quantity" => 60, "cost" => 15}})
@@ -71,9 +67,7 @@ class StoreTest < Minitest::Test
     assert_equal ({"quantity" => 60, "cost" => 15}),acme.stock_check("shirt").first
   end
 
-  def test_store_can_determine_sold_count
-    ace = Store.new("Ace", "834 2nd St", "Hardware")
-    
+  def test_store_can_determine_sold_count    
     inventory3 = Inventory.new(Date.new(2017, 9, 16)) 
     inventory3.record_item({"hammer" => {"quantity" => 20, "cost" => 20}})
     
@@ -88,19 +82,17 @@ class StoreTest < Minitest::Test
   end
 
   def test_international_sales
-    ace = Store.new("Ace", "834 2nd St", "Hardware")    
-    hobby_town = Store.new("Hobby Town", "894 Bee St", "Hobby")
     inventory5 = Inventory.new(Date.new(2017, 3, 10))
     inventory5.record_item({"miniature orc" => {"quantity" => 2000, "cost" => 20}})
     inventory5.record_item({"fancy paint brush" => {"quantity" => 200, "cost" => 20}})
     
     ace.add_inventory(inventory5) 
-    
-    
     order = ace.print_us_order({"miniature orc" => 30, "fancy paint brush" => 1})
+    
     assert_equal "$620", order
 
-    br_order =  ace.brazilian_order({"miniature orc" => 30, "fancy paint brush" => 1})
+    br_order = ace.brazilian_order({"miniature orc" => 30, "fancy paint brush" => 1})
+
     assert_equal "R$1909.60", br_order
   end
 end
