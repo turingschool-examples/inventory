@@ -24,12 +24,16 @@ class Store
   end
 
   def amount_sold(item_name)
-
+    inventories = find_multiple_items_in_different_inventories(item_name)
+    item_totals = inventories.map do |inventory|
+      inventory.total_quantity
+    end
+    item_totals[0] - item_totals[1]
   end
 
   def find_multiple_items_in_different_inventories(item_name)
-    #choose the inventories that have the same item name
     @inventory_record.select do |inventory|
-      inventory.item_name
+      inventory.item_name == item_name
+    end
   end
 end

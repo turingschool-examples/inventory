@@ -82,7 +82,7 @@ class StoreTest < Minitest::Test
     store.add_inventory(inventory3)
     store.add_inventory(inventory4)
 
-    store.amount_sold('hammer')
+    assert_equal 5, store.amount_sold('hammer')
   end
 
 
