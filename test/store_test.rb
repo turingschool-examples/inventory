@@ -103,6 +103,22 @@ class StoreTest < Minitest::Test
     assert_equal 2, store.amount_sold("shirt")
   end
 
+  def test_us_order_totals_sums_quantities_times_costs
+    skip
+    hobby_town = Store.new("Hobby Town", "894 Bee St", "Hobby")
+    inventory5 = Inventory.new(Date.new(2017, 3, 10))
+    inventory5.record_item({"miniature orc" => {"quantity" => 2000, "cost" => 20}})
+    inventory5.record_item({"fancy paint brush" => {"quantity" => 200, "cost" => 20}})
+
+
+    ace.us_order({"miniature orc" => 30, "fancy paint brush" => 1})
+  end
+
+  def test_brazillian_order_multiplies_by_exchange_rate
+    skip #rate it 3.08
+  end
+
+
   def simple_inventory(item_name: "shirt", quantity: 1, cost: 2)
     inventory = Inventory.new(Time.now)
     inventory.record_item({ item_name => { "quantity" => quantity, "cost" => cost } })
