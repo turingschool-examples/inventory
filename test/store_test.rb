@@ -41,9 +41,18 @@ class StoreTest < Minitest::Test
     assert_equal inventory, store.inventory_record[-1]
   end
 
-  def test_stock_check_returns_nil_when_item_is_not_recorded
+  def test_stock_check_returns_nil_when_no_inventory
     store = Store.new("Ace", "834 2nd St", "Hardware")
     assert_nil store.stock_check("shirt")
+  end
+
+  def test_stock_check_returns_nil_when_item_is_not_recorded
+    inventory = Inventory.new(Time.now)
+    inventory.record_item({ "shirt" => { "quantity" => 1, "cost" => 2 } })
+    store = Store.new("Ace", "834 2nd St", "Hardware")
+    store.add_inventory(inventory)
+
+    assert_nil store.stock_check("gloop")
   end
 
   def test_stock_check_returns_quantity_and_cost_of_recorded_unavailable_item
