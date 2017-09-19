@@ -34,6 +34,19 @@ class InventoryTest < Minitest::Test
     assert_equal item_1, @inventory_1.items
   end
 
+  def test_record_item_stores_multiple_items_and_sums_like_values
+
+    item_1 = {"shirt" => {"quantity" => 50, "cost" => 15}}
+    item_2 = {"shirt" => {"quantity" => 10, "cost" => 15}}
+    expected = {"shirt" => {"quantity" => 60, "cost" => 15}}
+
+
+    inventory_1.record_item(item_1)
+    inventory_1.record_item(item_2)
+
+    assert_equal expected, @inventory_1.items
+  end
+
 
 
 end

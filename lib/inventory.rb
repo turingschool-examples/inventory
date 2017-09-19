@@ -1,4 +1,5 @@
 require 'date'
+require 'pry'
 class Inventory
 
   attr_reader :date, :items
@@ -9,9 +10,15 @@ class Inventory
   end
 
   def record_item(item)
-    @items = item
-  end  
+    if @items.empty?
+      @items = item
+    elsif @items.keys == item.keys
+      @items.merge!(item){|key, oldval, newval| newval.merge!(oldval){|key, oldval, newval| oldval + newval } }
+    else
+    @items.merge(item)
+    end
 
+  end
 
 
 
