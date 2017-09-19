@@ -108,12 +108,17 @@ class StoreTest < Minitest::Test
   end
 
   def test_us_order_multiplies_order_amount_by_price
-    store.add_inventory(simple_inventory(cost: 2))
+    store.add_inventory(simple_inventory(cost: 2, quantity: 4))
     assert_equal 6, store.us_order({ "shirt" => 3 })
   end
 
+  def test_order_is_limited_to_quantity_available
+    store.add_inventory(simple_inventory(cost: 2, quantity: 2))
+    assert_equal 4, store.us_order({ "shirt" => 3 })
+  end
+
   def test_us_order_sums_costs_for_multiple_items
-    inventory = simple_inventory(cost: 2)
+    inventory = simple_inventory(cost: 2, quantity: 5)
     inventory.record_item({ "pants" => { "cost" => 3, "quantity" => 7 } })
     store.add_inventory(inventory)
 
@@ -122,7 +127,7 @@ class StoreTest < Minitest::Test
   end
 
   def test_brazillian_order_multiplies_by_exchange_rate
-    inventory = simple_inventory(cost: 2)
+    inventory = simple_inventory(cost: 2, quantity: 5)
     inventory.record_item({ "pants" => { "cost" => 3, "quantity" => 7 } })
     store.add_inventory(inventory)
 
