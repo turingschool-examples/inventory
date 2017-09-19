@@ -46,6 +46,16 @@ class StoreTest < Minitest::Test
     assert_nil store.stock_check("shirt")
   end
 
+  def test_stock_check_returns_quantity_and_cost_of_recorded_unavailable_item
+    inventory = Inventory.new(Time.now)
+    shirt_data = { "quantity" => 0, "cost" => 2 }
+    inventory.record_item({ "shirt" => shirt_data })
+
+    store = Store.new("Ace", "834 2nd St", "Hardware")
+    store.add_inventory(inventory)
+    assert_equal shirt_data, store.stock_check("shirt")
+  end
+
   def test_stock_check_returns_quantity_and_cost_of_available_item
     inventory = Inventory.new(Time.now)
     shirt_data = { "quantity" => 1, "cost" => 2 }
@@ -57,14 +67,16 @@ class StoreTest < Minitest::Test
   end
 
   def test_stock_check_adds_quantity_of_same_item_in_multiple_inventories
-    inventory = Inventory.new(Time.now)
-    inventory.record_item({ "shirt" => { "quantity" => 1, "cost" => 2 } })
+    inventory_1 = Inventory.new(Time.now)
+    inventory_2 = Inventory.new(Time.now)
+    inventory_1.record_item({ "shirt" => { "quantity" => 3, "cost" => 2 } })
+    inventory_2.record_item({ "shirt" => { "quantity" => 1, "cost" => 2 } })
 
     store = Store.new("Ace", "834 2nd St", "Hardware")
-    store.add_inventory(inventory)
-    store.add_inventory(inventory)
+    store.add_inventory(inventory_1)
+    store.add_inventory(inventory_2)
 
-    expected = { "quantity" => 2, "cost" => 2 }
+    expected = { "quantity" => 1, "cost" => 2 }
     assert_equal expected, store.stock_check("shirt")
   end
 
