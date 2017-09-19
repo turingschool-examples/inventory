@@ -17,9 +17,18 @@ class InventoryTest < Minitest::Test
     assert_instance_of Date, inventory.date
   end
 
-  def test_inventort_has_items_as_empty_hash
+  def test_inventory_has_items_as_empty_hash
     inventory = Inventory.new(Date.new(2017, 9, 18))
 
     assert_equal ({}), inventory.items
+  end
+
+  def test_invtory_stores_items
+    inventory1 = Inventory.new(Date.new(2017, 9, 18))
+    inventory1.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
+    inventory1.items
+
+    assert_equal 1, inventory1.items.count
+    assert_equal ({"shirt" => {"quantity" => 50, "cost" => 15}}), inventory1.items
   end
 end
