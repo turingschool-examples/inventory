@@ -35,7 +35,9 @@ class Store
     def amount_sold(item)
       @final = []
       @inventory_record.map do |inventory|
-      inventory.items[item]
+      @all = inventory.items[item]
+      @all.values.reduce(:-)
       end
+
   end
 end
