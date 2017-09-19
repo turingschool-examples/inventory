@@ -44,4 +44,19 @@ class Store
     previous_data["quantity"] - latest_data["quantity"]
   end
 
+  def us_order(order)
+    # total = 0
+    # order.each_pair do |item, quantity|
+    #   inventory = find_inventories_with_item(item).first
+    #   total += (inventory.items[item]["cost"] * quantity)
+    # end
+    total = order.reduce(0) do |total, pair|
+      item = pair.first
+      quantity = pair.last
+      inventory = find_inventories_with_item(item).first
+      total += (inventory.items[item]["cost"] * quantity)
+    end
+    "$#{total}"
+  end
+
 end
