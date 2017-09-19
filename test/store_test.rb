@@ -5,6 +5,11 @@ require "./lib/inventory"
 
 class StoreTest < Minitest::Test
 
+  attr_reader :store
+  def setup
+    @store = Store.new("Hobby Town", "894 Bee St", "Hobby")
+  end
+
   def test_store_has_a_name
     store = Store.new("Hobby Town", "894 Bee St", "Hobby")
 
@@ -24,13 +29,10 @@ class StoreTest < Minitest::Test
   end
 
   def test_store_tracks_inventories
-    store = Store.new("Ace", "834 2nd St", "Hardware")
-
     assert_equal [], store.inventory_record
   end
 
   def test_store_can_add_inventories
-    store = Store.new("Ace", "834 2nd St", "Hardware")
     inventory = Inventory.new(Time.now)
 
     assert store.inventory_record.empty?
@@ -42,14 +44,12 @@ class StoreTest < Minitest::Test
   end
 
   def test_stock_check_returns_nil_when_no_inventory
-    store = Store.new("Ace", "834 2nd St", "Hardware")
     assert_nil store.stock_check("shirt")
   end
 
   def test_stock_check_returns_nil_when_item_is_not_recorded
     inventory = Inventory.new(Time.now)
     inventory.record_item({ "shirt" => { "quantity" => 1, "cost" => 2 } })
-    store = Store.new("Ace", "834 2nd St", "Hardware")
     store.add_inventory(inventory)
 
     assert_nil store.stock_check("gloop")
@@ -60,7 +60,6 @@ class StoreTest < Minitest::Test
     shirt_data = { "quantity" => 0, "cost" => 2 }
     inventory.record_item({ "shirt" => shirt_data })
 
-    store = Store.new("Ace", "834 2nd St", "Hardware")
     store.add_inventory(inventory)
     assert_equal shirt_data, store.stock_check("shirt")
   end
@@ -70,7 +69,6 @@ class StoreTest < Minitest::Test
     shirt_data = { "quantity" => 1, "cost" => 2 }
     inventory.record_item({ "shirt" => shirt_data })
 
-    store = Store.new("Ace", "834 2nd St", "Hardware")
     store.add_inventory(inventory)
     assert_equal shirt_data, store.stock_check("shirt")
   end
@@ -81,7 +79,6 @@ class StoreTest < Minitest::Test
     inventory_1.record_item({ "shirt" => { "quantity" => 3, "cost" => 2 } })
     inventory_2.record_item({ "shirt" => { "quantity" => 1, "cost" => 2 } })
 
-    store = Store.new("Ace", "834 2nd St", "Hardware")
     store.add_inventory(inventory_1)
     store.add_inventory(inventory_2)
 
@@ -91,14 +88,12 @@ class StoreTest < Minitest::Test
 
 
   def test_amount_sold_returns_nil_when_no_inventory
-    store = Store.new("Ace", "834 2nd St", "Hardware")
     assert_nil store.amount_sold("shirt")
   end
 
   def test_amount_sold_returns_nil_when_item_is_not_recorded
     inventory = Inventory.new(Time.now)
     inventory.record_item({ "shirt" => { "quantity" => 1, "cost" => 2 } })
-    store = Store.new("Ace", "834 2nd St", "Hardware")
     store.add_inventory(inventory)
 
     assert_nil store.amount_sold("gloop")
@@ -107,7 +102,6 @@ class StoreTest < Minitest::Test
   def test_amount_sold_returns_0_when_recorded_item_goes_unsold
     inventory = Inventory.new(Time.now)
     inventory.record_item({ "shirt" => { "quantity" => 1, "cost" => 2 } })
-    store = Store.new("Ace", "834 2nd St", "Hardware")
     store.add_inventory(inventory)
 
     assert_equal 0, store.amount_sold("shirt")
@@ -119,7 +113,6 @@ class StoreTest < Minitest::Test
     inventory_1.record_item({ "shirt" => { "quantity" => 3, "cost" => 2 } })
     inventory_2.record_item({ "shirt" => { "quantity" => 1, "cost" => 2 } })
 
-    store = Store.new("Ace", "834 2nd St", "Hardware")
     store.add_inventory(inventory_1)
     store.add_inventory(inventory_2)
 
@@ -134,7 +127,6 @@ class StoreTest < Minitest::Test
     inventory_2.record_item({ "shirt" => { "quantity" => 3, "cost" => 2 } })
     inventory_3.record_item({ "shirt" => { "quantity" => 1, "cost" => 2 } })
 
-    store = Store.new("Ace", "834 2nd St", "Hardware")
     store.add_inventory(inventory_1)
     store.add_inventory(inventory_2)
     store.add_inventory(inventory_3)
