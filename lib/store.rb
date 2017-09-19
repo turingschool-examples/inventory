@@ -16,4 +16,8 @@ class Store
     @inventory_record << inventory
   end
 
+  def stock_check(item_name)
+    @inventory_record.reduce {|inventory| inventory.items[item_name]}
+  end
+
 end
