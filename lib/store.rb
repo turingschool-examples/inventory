@@ -34,9 +34,8 @@ class Store
 
     def amount_sold(item)
       @final = []
-      @inventory_record.find_all do |inventory|
-        @final << inventory.items[item]
-        @final
-    end
+      @inventory_record.map do |inventory|
+      inventory.items[item]
+      end
   end
 end
