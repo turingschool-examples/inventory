@@ -1,17 +1,27 @@
 require 'date'
 
 class Inventory
-  attr_reader :date, :items, :item_name
+  attr_reader :date, :items, :item_name, :total_quantity, :cost
 
   def initialize(date)
     @date = date
     @items = {}
     @item_name = ''
+    @all_items = []
+    @total_quantity = 0
+    @cost = 0
   end
 
   def record_item(item_info)
-    find_name(item_info)
-    @items.merge!(item_info)
+    @all_items << item_info
+    name = find_name(item_info)
+    @cost = item_info.dig(name, 'cost')
+    quantity = item_info.dig(name, 'quantity')
+    @total_quantity += quantity
+
+    return @items = item_info if @all_items.count == 1
+
+     @items[name] = {'quantity' => @total_quantity, 'cost' => @cost}
   end
 
   def find_name(item_info)

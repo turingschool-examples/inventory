@@ -49,10 +49,8 @@ class StoreTest < Minitest::Test
     store.add_inventory(inventory)
 
     assert_equal 50, store.stock_check('shirt')
-
-
   end
 
-
+  
 
 end

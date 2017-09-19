@@ -5,34 +5,47 @@ require 'date'
 
 class InventoryTest < Minitest::Test
 
-  def setup
-     @inventory = Inventory.new(Date.new(2017, 9, 18))
-  end
-
   def test_it_exists
-    assert_instance_of Inventory, @inventory
+    inventory1 = Inventory.new(Date.new(2017, 9, 18))
+
+    assert_instance_of Inventory, inventory1
   end
 
   def test_it_has_a_date
-    assert_instance_of Date, @inventory.date
+    inventory1 = Inventory.new(Date.new(2017, 9, 18))
+
+    assert_instance_of Date, inventory1.date
   end
 
   def test_it_starts_with_empty_items
-    assert_instance_of Hash, @inventory.items
-    assert @inventory.items.empty?
+    inventory1 = Inventory.new(Date.new(2017, 9, 18))
+
+    assert_instance_of Hash, inventory1.items
+    assert inventory1.items.empty?
   end
 
   def test_it_can_record_items
-    @inventory.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
-    @inventory.items
+    inventory1 = Inventory.new(Date.new(2017, 9, 18))
+    inventory1.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
+    inventory1.items
 
-    assert_includes ["quantity" => 50, "cost" => 15], @inventory.items['shirt']
-    assert_equal "shirt", @inventory.items.keys.first
-    assert_equal 50, @inventory.items['shirt']['quantity']
-    assert_equal 15, @inventory.items['shirt']['cost']
+    assert_includes ["quantity" => 50, "cost" => 15], inventory1.items['shirt']
+    assert_equal "shirt", inventory1.items.keys.first
+    assert_equal 50, inventory1.items['shirt']['quantity']
+    assert_equal 15, inventory1.items['shirt']['cost']
   end
 
-  def test_it_has_a_name
-    assert_equal 'shirt', @inventory.item_name({"shirt" => {"quantity" => 50, "cost" => 15}})
+  def test_it_can_record_multiple_items
+    inventory1 = Inventory.new(Date.new(2017, 9, 18))
+    inventory1.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
+    inventory1.record_item({"shirt" => {"quantity" => 10, "cost" => 15}})
+    inventory1.items
+
+    assert_equal "shirt", inventory1.items.keys.first
+    assert_equal 60, inventory1.items['shirt']['quantity']
+    assert_equal 15, inventory1.items['shirt']['cost']
   end
+
+
+
 end
