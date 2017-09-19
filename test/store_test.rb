@@ -48,20 +48,15 @@ class StoreTest < Minitest::Test
   end
 
   def test_stock_check_returns_nil_when_item_is_not_recorded
-    inventory = Inventory.new(Time.now)
-    inventory.record_item({ "shirt" => { "quantity" => 1, "cost" => 2 } })
-    store.add_inventory(inventory)
+    store.add_inventory(simple_inventory)
 
     assert_nil store.stock_check("gloop")
   end
 
   def test_stock_check_returns_quantity_and_cost_of_recorded_unavailable_item
-    inventory = Inventory.new(Time.now)
-    shirt_data = { "quantity" => 0, "cost" => 2 }
-    inventory.record_item({ "shirt" => shirt_data })
-
-    store.add_inventory(inventory)
-    assert_equal shirt_data, store.stock_check("shirt")
+    store.add_inventory(simple_inventory(quantity: 0))
+    expected = { "quantity" => 0, "cost" => 2 }
+    assert_equal expected, store.stock_check("shirt")
   end
 
   def test_stock_check_returns_quantity_and_cost_of_available_item
@@ -132,6 +127,12 @@ class StoreTest < Minitest::Test
     store.add_inventory(inventory_3)
 
     assert_equal 2, store.amount_sold("shirt")
+  end
+
+  def simple_inventory(item_name: "shirt", quantity: 1, cost: 2)
+    inventory = Inventory.new(Time.now)
+    inventory.record_item({ item_name => { "quantity" => quantity, "cost" => cost } })
+    inventory
   end
 
 end
