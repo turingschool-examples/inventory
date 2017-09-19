@@ -20,8 +20,20 @@ class Store
     @inventory_record.last
   end
 
+  def previous_inventory
+    @inventory_record[-2]
+  end
+
   def stock_check(item_name)
     current_inventory && current_inventory.items[item_name]
+  end
+
+  def amount_sold(item_name)
+    current_stock = current_inventory && current_inventory.stock(item_name)
+    return nil if current_stock.nil?
+    previous_stock = previous_inventory && previous_inventory.stock(item_name)
+    return 0 if previous_stock.nil?
+    previous_stock - current_stock
   end
 
 end
