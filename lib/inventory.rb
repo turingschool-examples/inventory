@@ -6,9 +6,9 @@ class Inventory
     @items = {}
   end
 
-  def items
-
+  def record_item(hash)
+    hash.each_pair do |key, value|
+      items[key] = value
+    end
   end
-
-
 end

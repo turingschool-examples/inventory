@@ -15,11 +15,11 @@ class InventoryTest < Minitest::Test
   end
 
   def test_if_date_records_date
-    assert_equal Date, inventory.date
+    assert_equal Date, inventory.date.class
   end
 
   def test_if_items_is_a_hash
-    assert_equal ({}), repository.items
+    assert_equal ({}), inventory.items
   end
 
   def test_if_items_records_the_item
@@ -29,9 +29,9 @@ class InventoryTest < Minitest::Test
   end
 
   def test_if_record_item_is_dynamic
-    inventory1.record_item({"shirt" => {"quantity" => 10, "cost" => 15}})
+    inventory.record_item({"shirt" => {"quantity" => 10, "cost" => 15}})
 
-    assert_equal ({"shirt" => {"quantity" => 10, "cost" => 15}}),inventory1.items
+    assert_equal ({"shirt" => {"quantity" => 10, "cost" => 15}}), inventory.items
   end
 
 
