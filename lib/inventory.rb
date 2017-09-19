@@ -7,16 +7,16 @@ class Inventory
     @items = {}
   end
 
-  def record_item(item)
-    item_name = item.keys.first
-    item_data = item.values.first
+  def record_item(item_information)
+    item_name = item_information.keys.first
+    item_data = item_information.values.first
     return @items[item_name] = item_data unless @items.keys.include?(item_name)
 
-    update_item_data(item_name, item_data)
+    update_item_quantity(item_name, item_data)
   end
 
-  def update_item_data(item_name, item_data)
-    item_data.each_pair { |key, value| @items[item_name][key] += value }
+  def update_item_quantity(item_name, item_data)
+    @items[item_name]["quantity"] += item_data["quantity"]
   end
 
 end

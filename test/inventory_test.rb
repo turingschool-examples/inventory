@@ -31,7 +31,15 @@ class InventoryTest < Minitest::Test
     assert_equal ({"shirt"=>{"quantity"=>50, "cost"=>15}}), @inventory1.items
 
     @inventory1.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
-    assert_equal ({"shirt"=>{"quantity"=>100, "cost"=>30}}), @inventory1.items
+    assert_equal ({"shirt"=>{"quantity"=>100, "cost"=>15}}), @inventory1.items
+  end
+
+  def test_update_item_quantity_updates_quantity_of_item_given_item_name
+    @inventory1.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
+    assert_equal ({"shirt"=>{"quantity"=>50, "cost"=>15}}), @inventory1.items
+
+    @inventory1.update_item_quantity("shirt", {"quantity" => 50, "cost" => 15})
+    assert_equal ({"shirt"=>{"quantity"=>100, "cost"=>15}}), @inventory1.items
   end
 
 end
