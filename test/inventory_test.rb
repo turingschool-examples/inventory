@@ -19,5 +19,12 @@ class InventoryTest < Minitest::Test
     assert_instance_of Date, inventory1.date
   end
 
+  def test_inventory_1_initializes_with_empty_items_hash
+    inventory1 = Inventory.new(Date.new(2017, 9, 18))
+    expected = {}
+    
+    assert_equal expected, inventory1.items
+  end
+
 
 end
