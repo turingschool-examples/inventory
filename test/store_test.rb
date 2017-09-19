@@ -2,6 +2,7 @@ require "minitest/autorun"
 require "minitest/pride"
 require "./lib/store"
 require "./lib/inventory"
+require './lib/date'
 
 class StoreTest < Minitest::Test
 
@@ -31,7 +32,7 @@ class StoreTest < Minitest::Test
 
   def test_store_can_add_inventories
     store = Store.new("Ace", "834 2nd St", "Hardware")
-    inventory = Inventory.new
+    inventory = Inventory.new(Date.new(2017, 9, 18))
 
     assert store.inventory_record.empty?
 

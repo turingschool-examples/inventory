@@ -26,10 +26,18 @@ class InventoryTest < Minitest::Test
 
   def test_it_can_add_items_hash_to_items
     inventory = Inventory.new(Date.new(2017, 9, 18))
-
     inventory.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
+
     assert_equal({"shirt" => {"quantity" => 50, "cost" => 15}}, inventory.items)
   end
 
+  def test_it_can_add_items_to_items_hash
+    inventory = Inventory.new(Date.new(2017, 9, 18))
+    inventory.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
+    # binding.pry
+    inventory.record_item({"shirt" => {"quantity" => 10, "cost" => 15}})
+
+    assert_equal({"shirt" => {"quantity" => 60, "cost" => 15}}, inventory.items)
+  end
 
 end

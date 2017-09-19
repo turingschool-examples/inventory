@@ -16,4 +16,9 @@ class Store
     @inventory_record << inventory
   end
 
+  def stock_check(item)
+
+
+  end
+
 end
