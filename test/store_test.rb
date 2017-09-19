@@ -42,6 +42,16 @@ class StoreTest < Minitest::Test
     assert_instance_of Inventory, store.inventory_record[0]
   end
 
+  def test_it_can_check_stock_of_inventory
+    store = Store.new("Ace", "834 2nd St", "Hardware")
+    inventory = Inventory.new({"shirt" => {"quantity" => 50, "cost" => 15}})
+    store.add_inventory(inventory)
+
+    assert_equal 50, store.stock_check('shirt')['quantity']
+
+
+  end
+
 
 
 end

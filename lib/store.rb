@@ -16,4 +16,13 @@ class Store
     @inventory_record << inventory
   end
 
+  def stock_check(item_name)
+    #go to
+    inventory = @inventory_record.find do |inventory|
+      inventory.item_name.downcase == item_name.downcase
+    end
+    
+
+  end
+
 end
