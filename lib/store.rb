@@ -23,16 +23,24 @@ class Store
     stock.items[item]
   end
 
-  def amount_sold(item)
+  def find_difference(stock, item)
+    stock.reduce(0) do |item1, item2|
+      if item1 == 0
+        item1 = item2
+      else
+        item1 = item1.items[item]["quantity"] - item2.items[item]["quantity"]
+      end
+    end
+  end
+
+  def find_all_items_in_inventory(item)
     stock = inventory_record.find_all do |inventory|
       inventory.items[item]
     end
-    stock.reduce(0) do |thing1, thing2|
-      if thing1 == 0
-        thing1 = thing2
-      else
-        thing1 = thing1.items[item]["quantity"] - thing2.items[item]["quantity"]
-      end
-    end
+  end
+
+  def amount_sold(item)
+    stock = find_all_items_in_inventory(item)
+    find_difference(stock, item)
   end
 end
