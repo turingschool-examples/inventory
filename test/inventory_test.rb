@@ -49,9 +49,19 @@ class InventoryTest < Minitest::Test
     assert_equal ({"shirt" => {"quantity" => 60, "cost" => 15}}), @inventory1.items
   end
 
-  
+  def test_it_knows_if_item_is_in_inventory
+    @inventory1.record_item({"shirt" => {"quantity" => 60, "cost" => 15}})
+    @inventory2.record_item({"shoes" => {"quantity" => 40, "cost" => 30}})
 
+    refute @inventory1.item_is_in_inventory?('shoes')
+    assert @inventory2.item_is_in_inventory?('shoes')
+  end
 
+  def test_it_can_retrieve_quantity_of_item
+    @inventory1.record_item({"hammer" => {"quantity" => 20, "cost" => 20}})
+
+    assert_equal 20, @inventory1.retrieve_quantity('hammer')
+  end
 
 
 

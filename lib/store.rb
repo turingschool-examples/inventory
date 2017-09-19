@@ -16,13 +16,9 @@ class Store
     @inventory_record << inventory
   end
 
-  def item_is_in_inventory?(inventory, item)
-    inventory.items.keys[0] == item
-  end
-
   def stock_check(item)
     @inventory_record.each do |inventory|
-      if item_is_in_inventory?(inventory, item)
+      if inventory.item_is_in_inventory?(item)
         return inventory.items.values[0]
       end
     end
@@ -32,18 +28,10 @@ class Store
     @inventory_record.sort_by {|inventory| inventory.date}
   end
 
-  def retrieve_quantity(inventory, item)
-    item_info = last_inventory.items[item]
-    quantity_info = item_info.first
-    quantity = quantity_info[1]
-  end
-
   def amount_sold(item)
     last_inventory = sort_inventories_by_date[-1]
-    next_to_last_inventory = sort_inventories_by_date[-1]
-
-    item_info = last_inventory.items[item]
-    require "pry"; binding.pry
+    next_to_last_inventory = sort_inventories_by_date[-2]
+    next_to_last_inventory.retrieve_quantity(item) - last_inventory.retrieve_quantity(item)
   end
 
 end

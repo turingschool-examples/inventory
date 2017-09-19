@@ -29,4 +29,13 @@ class Inventory
     end
   end
 
+  def item_is_in_inventory?(item)
+    @items.keys[0] == item
+  end
+
+  def retrieve_quantity(item)
+    quantity_info = @items[item].first
+    quantity = quantity_info[1]
+  end
+
 end
