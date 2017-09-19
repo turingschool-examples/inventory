@@ -113,18 +113,20 @@ class StoreTest < Minitest::Test
   end
 
   def test_us_order_sums_costs_for_multiple_items
-    store.add_inventory(simple_inventory(cost: 2))
-    store.add_inventory(simple_inventory(cost: 3, item_name: "pants"))
-    order = { "shirt" => 5, "pants" => 7 }
+    inventory = simple_inventory(cost: 2)
+    inventory.record_item({ "pants" => { "cost" => 3, "quantity" => 7 } })
+    store.add_inventory(inventory)
 
+    order = { "shirt" => 5, "pants" => 7 }
     assert_equal 31, store.us_order(order)
   end
 
   def test_brazillian_order_multiplies_by_exchange_rate
-    store.add_inventory(simple_inventory(cost: 2))
-    store.add_inventory(simple_inventory(cost: 3, item_name: "pants"))
-    order = { "shirt" => 5, "pants" => 7 }
+    inventory = simple_inventory(cost: 2)
+    inventory.record_item({ "pants" => { "cost" => 3, "quantity" => 7 } })
+    store.add_inventory(inventory)
 
+    order = { "shirt" => 5, "pants" => 7 }
     assert_equal (31 * 3.08), store.brazillian_order(order)
   end
 
