@@ -9,18 +9,19 @@ class Inventory
     @items = {}
   end
 
-  def record_item(item_info)
-    # @items.reduce({}) do |@item, item_info|
-    #   @items.merge(item_info) do |quantity, cost|
-    @items = @items.merge(item_info) do |item, old_value, new_value|
-      old_value.merge(new_value) do |key, quantity, cost|
-        require "pry"; binding.pry
-        old_quantity + new_quantity
-      end
-      old_value.merge(new_value) do |cost, old_cost, new_cost|
-        old_cost + new_cost
-      end
+  def merge_item_quantities(old_quantity, new_quantity)
+    old_quantity.merge(new_quantity) do |key, first_amount, second_amount|
+      first_amount + second_amount
     end
+  end
+
+  def record_item(item_info)
+    @items = @items.merge(item_info) do |item, old_value, new_value|
+      old_quantity = old_value.select {|key,value| key == 'quantity'}
+      new_quantity = new_value.select {|key,value| key == 'quantity'}
+      require "pry"; binding.pry
+    end
+
   end
 
 
