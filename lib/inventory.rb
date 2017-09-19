@@ -11,9 +11,10 @@ class Inventory
   end
 
   def record_item(item)
-    @items.merge!(item)
+    item.map do |key, value|
+      @items.store(key, value) 
+    end
   end
 
-  
 
 end

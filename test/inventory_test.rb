@@ -32,6 +32,7 @@ class InventoryTest < Minitest::Test
   end
 
   def test_it_can_add_multiple_items_to_items_hash
+    # skip 
     inventory = Inventory.new(Date.new(2017, 9, 18))
     inventory.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
     inventory.record_item({"shirt" => {"quantity" => 10, "cost" => 15}})
