@@ -87,6 +87,7 @@ class StoreTest < Minitest::Test
     ace.add_inventory(inventory5)
 
     assert_equal 620, ace.us_order({"miniature orc" => 30, "fancy paint brush" => 1})
+    assert_equal Array, ace.order_items({"miniature orc" => 30, "fancy paint brush" => 1}).class
   end
 
   def test_if_brazilian_order_returns_amount_in_brazil_peso
