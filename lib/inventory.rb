@@ -13,4 +13,8 @@ class Inventory
     end
   end
 
+  def stock(item_name)
+    items[item_name] && items[item_name]["quantity"]
+  end
+
 end
