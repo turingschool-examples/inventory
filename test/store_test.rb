@@ -52,4 +52,21 @@ class StoreTest < Minitest::Test
 
   end
 
+  def test_add_inventory_fils_record_collection
+     inventory1 = Inventory.new(Date.new(2017, 9, 18))
+     inventory1.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
+
+    inventory2 = Inventory.new(Date.new(2017, 9, 18))
+    inventory2.record_item({"shoes" => {"quantity" => 40, "cost" => 30}})
+
+    acme = Store.new("Acme", "324 Main St", "Grocery")
+
+    acme.add_inventory(inventory1)
+    acme.add_inventory(inventory2)
+
+    assert_instance_of Inventory, acme.inventory_record.first
+    assert_equal 2, acme.inventory_record.count
+
+  end
+
 end
