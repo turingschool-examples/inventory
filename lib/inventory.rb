@@ -29,6 +29,4 @@ class Inventory
     end
   end
 
-
-
 end

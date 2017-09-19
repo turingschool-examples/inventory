@@ -5,16 +5,6 @@ require "./lib/inventory"
 
 class StoreTest < Minitest::Test
 
-  def setup
-    @store = Store.new("Acme", "324 Main St", "Grocery")
-    inventory1 = Inventory.new(Date.new(2017, 9, 18))
-    inventory2 = Inventory.new(Date.new(2017, 9, 18))
-    inventory1.record_item({"shirt" => {"quantity" => 60, "cost" => 15}})
-    inventory2.record_item({"shoes" => {"quantity" => 40, "cost" => 30}})
-    @store.add_inventory(inventory1)
-    @store.add_inventory(inventory2)
-  end
-
   def test_store_has_a_name
     store = Store.new("Hobby Town", "894 Bee St", "Hobby")
 
@@ -51,10 +41,57 @@ class StoreTest < Minitest::Test
     assert_equal inventory, store.inventory_record[-1]
   end
 
-  def test_stock_check_finds_info_about_item_in_inventory
-    # assert_equal ({"quantity" => 60, "cost" => 15}), @store.stock_check('shirt')
+  def test_it_knows_if_item_is_in_inventory
+    store = Store.new("Acme", "324 Main St", "Grocery")
+    inventory1 = Inventory.new(Date.new(2017, 9, 18))
+    inventory2 = Inventory.new(Date.new(2017, 9, 18))
+    inventory1.record_item({"shirt" => {"quantity" => 60, "cost" => 15}})
+    inventory2.record_item({"shoes" => {"quantity" => 40, "cost" => 30}})
+    store.add_inventory(inventory1)
+    store.add_inventory(inventory2)
 
-    assert_equal ({"quantity" => 40, "cost" => 30}), @store.stock_check('shoes')
+    refute store.item_is_in_inventory?(inventory1, 'shoes')
+    assert store.item_is_in_inventory?(inventory2, 'shoes')
+  end
+
+  def test_stock_check_finds_info_about_item_in_inventory
+    store = Store.new("Acme", "324 Main St", "Grocery")
+    inventory1 = Inventory.new(Date.new(2017, 9, 18))
+    inventory2 = Inventory.new(Date.new(2017, 9, 18))
+    inventory1.record_item({"shirt" => {"quantity" => 60, "cost" => 15}})
+    inventory2.record_item({"shoes" => {"quantity" => 40, "cost" => 30}})
+    store.add_inventory(inventory1)
+    store.add_inventory(inventory2)
+
+    assert_equal ({"quantity" => 60, "cost" => 15}), store.stock_check('shirt')
+
+    assert_equal ({"quantity" => 40, "cost" => 30}), store.stock_check('shoes')
+  end
+
+  def test_it_can_sort_inventories_by_date
+    ace = Store.new("Ace", "834 2nd St", "Hardware")
+    inventory3 = Inventory.new(Date.new(2017, 9, 18))
+    inventory4 = Inventory.new(Date.new(2017, 9, 16))
+    ace.add_inventory(inventory3)
+    ace.add_inventory(inventory4)
+
+    assert_equal [inventory4, inventory3], ace.sort_inventories_by_date
+  end
+
+  def test_it_tracks_amount_sold
+    ace = Store.new("Ace", "834 2nd St", "Hardware")
+
+    inventory3 = Inventory.new(Date.new(2017, 9, 16))
+    inventory3.record_item({"hammer" => {"quantity" => 20, "cost" => 20}})
+
+    inventory4 = Inventory.new(Date.new(2017, 9, 18))
+    inventory4.record_item({"mitre saw" => {"quantity" => 10, "cost" => 409}})
+    inventory4.record_item({"hammer" => {"quantity" => 15, "cost" => 20}})
+
+    ace.add_inventory(inventory3)
+    ace.add_inventory(inventory4)
+
+    assert_equal 5, ace.amount_sold("hammer")
   end
 
 end
