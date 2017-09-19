@@ -1,4 +1,3 @@
-require 'pry'
 require 'date'
 class Inventory
   attr_reader :date, :items

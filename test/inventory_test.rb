@@ -1,7 +1,6 @@
 require "minitest/autorun"
 require "minitest/pride"
 require './lib/inventory'
-require 'pry'
 
 class InventoryTest < Minitest::Test
   def test_for_new_instance_of_date_in_inventory
