@@ -17,8 +17,9 @@ class Store
   end
 
   def stock_check(item)
-
-
+    @inventory_record.map do |inventory|
+      inventory.items[item]
+    end
   end
 
 end
