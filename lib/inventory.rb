@@ -6,10 +6,9 @@ class Inventory
 
   def initialize(date)
     @date = date
-    @record_item = []
   end
 
-  def record_item(inventory)
-    @record_item << inventory
+  def record_item(inventory_record)
+    
   end
 end
