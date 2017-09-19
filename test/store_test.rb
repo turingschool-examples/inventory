@@ -41,4 +41,14 @@ class StoreTest < Minitest::Test
     assert_equal inventory, store.inventory_record[-1]
   end
 
+  def test_stock_check_returns_quantity_and_cost_of_available_item
+    inventory = Inventory.new(Time.now)
+    shirt_data = { "quantity" => 1, "cost" => 2 }
+    inventory.record_item({ "shirt" => shirt_data })
+    
+    store = Store.new("Ace", "834 2nd St", "Hardware")
+    store.add_inventory(inventory)
+    assert_equal shirt_data, store.stock_check("shirt")
+  end
+
 end
