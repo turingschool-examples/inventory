@@ -6,7 +6,6 @@ attr_reader :date ,:items, :stock
   def initialize(date)
     @date = date
     @items = {}
-    @inventory_record = []
   end
 
   def date
@@ -19,8 +18,5 @@ attr_reader :date ,:items, :stock
       end
   end
 
-  def add_inventory(inventory)
-  @inventory_record << inventory
-  end
 
 end

@@ -19,7 +19,7 @@ class Store
   end
 
   def stock_check(unit)
-    @inventory_record[1].items[unit]
+   inventory_record[0].items[unit]
   end
 
 

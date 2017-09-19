@@ -60,6 +60,9 @@ class InventoryTest < Minitest::Test
 
   def test_inventory_stock_can_be_checked
     inventory1 = Inventory.new(Date.new(2017, 9, 18))
+    inventory1.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
+    inventory1.record_item({"shirt" => {"quantity" => 10, "cost" => 15}})
+
     inventory2 = Inventory.new(Date.new(2017, 9, 18))
     inventory2.record_item({"shoes" => {"quantity" => 40, "cost" => 30}})
 
@@ -67,8 +70,9 @@ class InventoryTest < Minitest::Test
     acme.add_inventory(inventory1)
     acme.add_inventory(inventory2)
 
-    assert_equal acme.stock_check('shirt'), {"quantity" => 10, "cost" => 15}
-  end
+    assert_equal acme.stock_check("shirt"), {"quantity" => 10, "cost" => 15}
+
+   end
 
 
 end
