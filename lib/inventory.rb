@@ -1,13 +1,18 @@
 require 'DATE'
 
 class Inventory
-
-  attr_reader :date
+  attr_reader :date, 
+              :items
 
   def initialize(date)
-    @date = Date.parse("2017-9-18")
-  
+    @date = date
+    @items = {}
   end
-  
+
+  def record_item(hash)
+    hash.each_pair do |key, value|
+      items[key] = value
+    end
+  end
 
 end
