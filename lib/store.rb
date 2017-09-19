@@ -33,6 +33,10 @@ class Store
     end
 
     def amount_sold(item)
-
+      @final = []
+      @inventory_record.find_all do |inventory|
+        @final << inventory.items[item]
+        @final
     end
   end
+end

@@ -46,7 +46,6 @@ class StoreTest < Minitest::Test
     inventory.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
     acme = Store.new("Acme", "324 Main St", "Grocery")
     acme.add_inventory(inventory)
-<<<<<<< HEAD
 
     assert_equal ({"quantity" => 50, "cost" => 15}), acme.stock_check("shirt")
   end
@@ -61,14 +60,11 @@ class StoreTest < Minitest::Test
     ace.add_inventory(inventory3)
     ace.add_inventory(inventory4)
 
-=======
->>>>>>> d09c2dab294d04412b38940ce3aea1e9666c9d61
-
     assert_equal ({"quantity" => 50, "cost" => 15}), acme.stock_check("shirt")
   end
 
   def test_amount_sold
-    acme = Store.new("Acme", "324 Main St", "Grocery")
+    ace = Store.new("Acme", "324 Main St", "Grocery")
     inventory3 = Inventory.new(Date.new(2017, 9, 16))
     inventory3.record_item({"hammer" => {"quantity" => 20, "cost" => 20}})
     inventory4 = Inventory.new(Date.new(2017, 9, 18))
@@ -77,5 +73,7 @@ class StoreTest < Minitest::Test
     ace.add_inventory(inventory3)
     ace.add_inventory(inventory4)
 
-    
+    assert_equal 5, ace.amount_sold("hammer")
+
+  end
 end
