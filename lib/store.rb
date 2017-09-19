@@ -21,7 +21,7 @@ class Store
   def stock_check(item)
     inventory_record.map do |inventory|
       inventory.check_inventory(item)
-    end
+    end.compact
   end
 
   def quantities(item)

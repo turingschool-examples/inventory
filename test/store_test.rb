@@ -89,6 +89,31 @@ class StoreTest < Minitest::Test
     assert_equal [20, 15], ace.quantities("hammer")
   end
 
+  def test_stores_sells_nothing_if_item_does_not_exist
+    ace = Store.new("Ace", "834 2nd St", "Hardware")
+
+    inventory3 = Inventory.new(Date.new(2017, 9, 16))
+    inventory3.record_item({"hammer" => {"quantity" => 20, "cost" => 20}})
+
+    ace.add_inventory(inventory3)
+
+    assert_equal 0, ace.amount_sold("kittens")
+  end
+
+  def test_store_sells_nothing_if_inventory_does_not_change
+    ace = Store.new("Ace", "834 2nd St", "Hardware")
+
+    inventory3 = Inventory.new(Date.new(2017, 9, 16))
+    inventory3.record_item({"mitre saw" => {"quantity" => 10, "cost" => 20}})
+
+    inventory4 = Inventory.new(Date.new(2017, 9, 18))
+    inventory4.record_item({"mitre saw" => {"quantity" => 10, "cost" => 409}})
+
+    ace.add_inventory(inventory4)
+
+    assert_equal 0, ace.amount_sold("mitre saw")
+  end
+
   def test_store_can_find_amount_sold
     ace = Store.new("Ace", "834 2nd St", "Hardware")
 
