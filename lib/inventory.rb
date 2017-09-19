@@ -9,13 +9,17 @@ class Inventory
     @items = {}
   end
 
+  def same_item(item)
+    @items.merge!(item) do |key, oldval, newval|
+      newval.merge!(oldval){|key, oldval, newval| key == "cost" ? oldval : oldval + newval }
+    end
+  end
+
+
   def record_item(item)
     if @items.empty?
       @items = item
-    elsif @items.keys == item.keys
-      @items.merge!(item) do |key, oldval, newval|
-        newval.merge!(oldval){|key, oldval, newval| oldval + newval}
-      end
+    elsif same_item(item)
     else
     @items.merge(item)
 
