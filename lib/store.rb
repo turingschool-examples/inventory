@@ -1,3 +1,4 @@
+require './lib/inventory'
 class Store
 
   attr_reader :name,
@@ -16,4 +17,22 @@ class Store
     @inventory_record << inventory
   end
 
-end
+  def inventory_record
+    @inventory_record
+  end
+
+  def stock_check(item)
+      inventory = stock(item)
+      inventory.items[item]
+    end
+
+    def stock(item)
+      inventory_record.find do |inventory|
+        inventory.items[item]
+      end
+    end
+
+    def amount_sold(item)
+
+    end
+  end
