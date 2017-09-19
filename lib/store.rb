@@ -1,11 +1,11 @@
 require 'inventory'
 
 class Store
-
   attr_reader :name,
               :address,
               :type,
               :inventory_record
+              :record_item
 
   def initialize(name, address, type)
     @name = name
@@ -21,4 +21,9 @@ class Store
   def stock_check(shirt)
     shirt = ({"quantity" => 60, "cost" => 15})
   end
+
+  def amount_sold(hammer)
+    @record_item
+  end
+
 end

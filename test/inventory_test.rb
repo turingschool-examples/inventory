@@ -45,6 +45,8 @@ class InventoryTest < Minitest::Test
 
     ace.add_inventory(inventory3)
     ace.add_inventory(inventory4)
+
+    assert_equal 5, ace.amount_sold("hammer")
   end
 
 
