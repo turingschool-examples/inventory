@@ -5,6 +5,17 @@ require "./lib/inventory"
 
 class StoreTest < Minitest::Test
 
+  def setup
+    @acme = Store.new("Acme", "324 Main St", "Grocery")
+    inventory1 = Inventory.new(Date.new(2017, 9, 18))
+    inventory1.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
+    inventory1.record_item({"shirt" => {"quantity" => 10, "cost" => 15}})
+    inventory2 = Inventory.new(Date.new(2017, 9, 18))
+    inventory2.record_item({"shoes" => {"quantity" => 40, "cost" => 30}})
+    @acme.add_inventory(inventory1)
+    @acme.add_inventory(inventory2)
+  end
+
   def test_store_has_a_name
     store = Store.new("Hobby Town", "894 Bee St", "Hobby")
 
@@ -39,6 +50,13 @@ class StoreTest < Minitest::Test
 
     refute store.inventory_record.empty?
     assert_equal inventory, store.inventory_record[-1]
+  end
+
+  def test_stock_check_returns_item_information_if_item_is_in_any_inventory
+    actual = @acme.stock_check("shirt")
+    expected = {"quantity" => 60, "cost" => 15}
+
+    assert_equal expected, actual
   end
 
 end
