@@ -31,7 +31,7 @@ class StoreTest < Minitest::Test
 
   def test_store_can_add_inventories
     store = Store.new("Ace", "834 2nd St", "Hardware")
-    inventory = Inventory.new
+    inventory = Inventory.new({"shirt" => {"quantity" => 50, "cost" => 15}})
 
     assert store.inventory_record.empty?
 
@@ -39,6 +39,9 @@ class StoreTest < Minitest::Test
 
     refute store.inventory_record.empty?
     assert_equal inventory, store.inventory_record[-1]
+    assert_instance_of Inventory, store.inventory_record[0]
   end
+
+
 
 end
