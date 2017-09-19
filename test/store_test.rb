@@ -67,7 +67,9 @@ class StoreTest < Minitest::Test
     ace.add_inventory(inventory3)
     ace.add_inventory(inventory4)
 
-    hammer_stock = [{"quantity" => 20, "cost" => 20}, {"quantity" => 15, "cost" => 20}]
+    hammer_stock = [{"quantity" => 20, "cost" => 20},
+                    {"quantity" => 15, "cost" => 20}
+                   ]
 
     assert_equal hammer_stock, ace.stock_check('hammer')
   end
@@ -148,10 +150,14 @@ class StoreTest < Minitest::Test
 
     inventory5 = Inventory.new(Date.new(2017, 3, 10))
 
-    inventory5.record_item({"miniature orc" => {"quantity" => 2000, "cost" => 20}})
-    inventory5.record_item({"fancy paint brush" => {"quantity" => 200, "cost" => 20}})
+    orc = {"miniature orc" => {"quantity" => 2000, "cost" => 20}}
+    brush = {"fancy paint brush" => {"quantity" => 200, "cost" => 20}}
+
+    inventory5.record_item(orc)
+    inventory5.record_item(brush)
 
     hobby_town.add_inventory(inventory5)
+
     order = {"miniature orc" => 30, "fancy paint brush" => 1}
 
     assert_equal 620, hobby_town.us_order_num(order)
@@ -163,10 +169,14 @@ class StoreTest < Minitest::Test
 
     inventory5 = Inventory.new(Date.new(2017, 3, 10))
 
-    inventory5.record_item({"miniature orc" => {"quantity" => 2000, "cost" => 20}})
-    inventory5.record_item({"fancy paint brush" => {"quantity" => 200, "cost" => 20}})
+    orc = {"miniature orc" => {"quantity" => 2000, "cost" => 20}}
+    brush = {"fancy paint brush" => {"quantity" => 200, "cost" => 20}}
+
+    inventory5.record_item(orc)
+    inventory5.record_item(brush)
 
     hobby_town.add_inventory(inventory5)
+
     order = {"miniature orc" => 30, "fancy paint brush" => 1}
 
     assert_equal 1909.60, hobby_town.brazilian_order_num(order)
