@@ -68,8 +68,39 @@ class StoreTest < Minitest::Test
     acme.add_inventory(inventory1)
     acme.add_inventory(inventory2)
     
-    assert_equal ({"quantity" => 60, "cost" => 15}),acme.stock_check("shirt")
+    assert_equal ({"quantity" => 60, "cost" => 15}),acme.stock_check("shirt").first
   end
 
+  def test_store_can_determine_sold_count
+    ace = Store.new("Ace", "834 2nd St", "Hardware")
+    
+    inventory3 = Inventory.new(Date.new(2017, 9, 16)) 
+    inventory3.record_item({"hammer" => {"quantity" => 20, "cost" => 20}})
+    
+    inventory4 = Inventory.new(Date.new(2017, 9, 18))
+    inventory4.record_item({"mitre saw" => {"quantity" => 10, "cost" => 409}})
+    inventory4.record_item({"hammer" => {"quantity" => 15, "cost" => 20}})
+    
+    ace.add_inventory(inventory3)
+    ace.add_inventory(inventory4) 
+    
+    assert_equal 5, ace.amount_sold("hammer") 
+  end
 
+  def test_international_sales
+    ace = Store.new("Ace", "834 2nd St", "Hardware")    
+    hobby_town = Store.new("Hobby Town", "894 Bee St", "Hobby")
+    inventory5 = Inventory.new(Date.new(2017, 3, 10))
+    inventory5.record_item({"miniature orc" => {"quantity" => 2000, "cost" => 20}})
+    inventory5.record_item({"fancy paint brush" => {"quantity" => 200, "cost" => 20}})
+    
+    ace.add_inventory(inventory5) 
+    
+    
+    order = ace.print_us_order({"miniature orc" => 30, "fancy paint brush" => 1})
+    assert_equal "$620", order
+
+    br_order =  ace.brazilian_order({"miniature orc" => 30, "fancy paint brush" => 1})
+    assert_equal "R$1909.60", br_order
+  end
 end
