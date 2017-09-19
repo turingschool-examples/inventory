@@ -103,19 +103,31 @@ class StoreTest < Minitest::Test
     assert_equal 2, store.amount_sold("shirt")
   end
 
-  def test_us_order_totals_sums_quantities_times_costs
-    skip
-    hobby_town = Store.new("Hobby Town", "894 Bee St", "Hobby")
-    inventory5 = Inventory.new(Date.new(2017, 3, 10))
-    inventory5.record_item({"miniature orc" => {"quantity" => 2000, "cost" => 20}})
-    inventory5.record_item({"fancy paint brush" => {"quantity" => 200, "cost" => 20}})
+  def test_us_order_returns_0_if_order_empty
+    assert_equal 0, store.us_order({})
+  end
 
+  def test_us_order_multiplies_order_amount_by_price
+    store.add_inventory(simple_inventory(cost: 2))
+    assert_equal 6, store.us_order({ "shirt" => 3 })
+  end
 
-    ace.us_order({"miniature orc" => 30, "fancy paint brush" => 1})
+  def test_us_order_sums_costs_for_multiple_items
+    inventory = simple_inventory(cost: 2)
+    inventory.record_item({ "pants" => { "cost" => 3, "quantity" => 7 } })
+    store.add_inventory(inventory)
+
+    order = { "shirt" => 5, "pants" => 7 }
+    assert_equal 31, store.us_order(order)
   end
 
   def test_brazillian_order_multiplies_by_exchange_rate
-    skip #rate it 3.08
+    inventory = simple_inventory(cost: 2)
+    inventory.record_item({ "pants" => { "cost" => 3, "quantity" => 7 } })
+    store.add_inventory(inventory)
+
+    order = { "shirt" => 5, "pants" => 7 }
+    assert_equal (31 * 3.08), store.brazillian_order(order)
   end
 
 
