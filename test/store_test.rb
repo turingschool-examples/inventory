@@ -80,4 +80,27 @@ class StoreTest < Minitest::Test
 
     assert_equal 5, ace.amount_sold("hammer")
   end
+
+  def test_us_order
+    hobby_town = Store.new("Hobby Town", "894 Bee St", "Hobby")
+    inventory5 = Inventory.new(Date.new(2017, 3, 10))
+    inventory5.record_item({"miniature orc" => {"quantity" => 2000, "cost" => 20}})
+    inventory5.record_item({"fancy paint brush" => {"quantity" => 200, "cost" => 20}})
+    hobby_town.add_inventory(inventory5)
+    hobby_town.add_inventory(inventory5)
+
+
+    assert_equal "$620", hobby_town.us_order({"miniature orc" => 30, "fancy paint brush" => 1})
+  end
+
+  def test_brazillian_order
+    hobby_town = Store.new("Hobby Town", "894 Bee St", "Hobby")
+    inventory5 = Inventory.new(Date.new(2017, 3, 10))
+    inventory5.record_item({"miniature orc" => {"quantity" => 2000, "cost" => 20}})
+    inventory5.record_item({"fancy paint brush" => {"quantity" => 200, "cost" => 20}})
+    hobby_town.add_inventory(inventory5)
+    hobby_town.add_inventory(inventory5)
+
+    assert_equal "R$1909.60",hobby_town.brazillian_order({"miniature orc" => 30, "fancy paint brush" => 1})
+  end
 end
