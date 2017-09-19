@@ -17,14 +17,23 @@ class Store
   end
 
   def stock_check(item)
-    inventory = find_inventory_with_item(item)
+    inventories = find_inventories_with_item(item)
+    inventory = sort_by_most_recent(inventories).first
     inventory.items[item]
   end
 
-  def find_inventory_with_item(item)
-    inventory_record.find do |inventory|
+  def find_inventories_with_item(item)
+    inventory_record.find_all do |inventory|
       inventory.items.keys.include?(item)
     end
+  end
+
+  def sort_by_most_recent(inventories)
+    inventories.sort_by { |inventory| inventory.date }
+  end
+
+  def amount_sold(item)
+
   end
 
 end
