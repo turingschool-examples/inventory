@@ -3,12 +3,20 @@ require "minitest/pride"
 require './lib/inventory'
 require 'date'
 
+require 'pry'
+
 
 class InventoryTest < Minitest::Test
   def test_it_exists
-    inventory = Inventory.new(Date.new(2017, 9, 18))
+    inventory1 = Inventory.new(Date.new(2017, 9, 18))
 
-    assert_instance_of Inventory, inventory
+    assert_instance_of Inventory, inventory1
+  end
+
+  def test_inventory_1_initializes_with_date
+    inventory1 = Inventory.new(Date.new(2017, 9, 18))
+
+    assert_instance_of Date, inventory1.date
   end
 
 
