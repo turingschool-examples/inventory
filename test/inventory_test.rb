@@ -22,7 +22,15 @@ class InventoryTest < Minitest::Test
   end
 
   def test_if_items_records_the_item
+    inventory.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
 
+    assert_equal {"shirt" => {"quantity" => 50, "cost" => 15}}, inventory.items
+  end
+
+  def test_if_record_item_is_dynamic
+    inventory1.record_item({"shirt" => {"quantity" => 10, "cost" => 15}})
+
+    assert_equal {"shirt" => {"quantity" => 10, "cost" => 15}},inventory1.items 
   end
 
 
