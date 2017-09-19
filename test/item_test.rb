@@ -13,6 +13,15 @@ class ItemTest < Minitest::Test
     assert_equal 15, item.cost
   end
 
+  def test_another_item_can_exist
+    item = Item.new({"shirt" => {"quantity" => 50, "cost" => 15}})
+
+    assert_instance_of Item, item
+    assert_equal 'shirt', item.name
+    assert_equal 50, item.quantity
+    assert_equal 15, item.cost
+  end
+
 
 
 end

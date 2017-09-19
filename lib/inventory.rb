@@ -1,4 +1,5 @@
 require 'date'
+require './lib/item'
 
 class Inventory
   attr_reader :date, :items, :item_name, :total_quantity, :cost
@@ -13,6 +14,12 @@ class Inventory
   end
 
   def record_item(item_info)
+
+    item = Item.new(item_info)
+    name = item.name
+    cost = item.cost
+    quantity = item.quantity
+    
     #there's an issue with this setup based on iteration 3. you record_items with different names
     @all_items << item_info
     name = find_name(item_info)
