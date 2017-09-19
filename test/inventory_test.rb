@@ -2,6 +2,7 @@ require "minitest/autorun"
 require "minitest/pride"
 require './lib/inventory'
 require './lib/date'
+require 'pry'
 
 class InventoryTest < Minitest::Test
 
@@ -23,6 +24,12 @@ class InventoryTest < Minitest::Test
     assert_equal({}, inventory.items)
   end
 
+  def test_it_can_add_items_hash_to_items
+    inventory = Inventory.new(Date.new(2017, 9, 18))
+
+    inventory.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
+    assert_equal({"shirt" => {"quantity" => 50, "cost" => 15}}, inventory.items)
+  end
 
 
 end

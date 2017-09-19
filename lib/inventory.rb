@@ -9,9 +9,7 @@ class Inventory
   end
 
   def record_item(item)
-    @items
+    @items.merge!(item)
   end
-
-
 
 end
