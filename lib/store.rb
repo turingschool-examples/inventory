@@ -16,20 +16,12 @@ class Store
     @inventory_record << inventory
   end
 
+  def current_inventory
+    @inventory_record.last
+  end
+
   def stock_check(item_name)
-    inventory_record.reduce(nil) do |past_data, inventory|
-
-      current_data = inventory.items[item_name]
-      if current_data.nil?
-        past_data
-      elsif past_data.nil?
-        current_data
-      else
-        past_data["quantity"] += current_data["quantity"]
-        past_data
-      end
-
-    end
+    current_inventory && current_inventory.items[item_name]
   end
 
 end
