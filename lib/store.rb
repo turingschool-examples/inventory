@@ -16,4 +16,11 @@ class Store
     @inventory_record << inventory
   end
 
+  def stock_check(item)
+    inventory = inventory_record.find do |inventory|
+      thing = inventory.items[item]
+    end
+    inventory.items[item]
+  end
+
 end
