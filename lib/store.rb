@@ -1,3 +1,5 @@
+require "date"
+
 class Store
 
   attr_reader :name,
