@@ -30,4 +30,33 @@ class InventoryTest < Minitest::Test
     assert_equal arg, inventory1.items
   end
 
+  def test_inventory_can_record_many_items
+    assert_equal ({}), inventory1.items   
+
+    arg = {"shirt" => {"quantity" => 50, "cost" => 15}} 
+    inventory1.record_item(arg)   
+     
+    assert_equal arg, inventory1.items
+
+    other_arg = {"shirt" => {"quantity" => 10, "cost" => 15}}
+    inventory1.record_item(other_arg)
+    expected  = {"shirt" => {"quantity" => 60, "cost" => 15}}
+
+    # assert_equal expected, inventory1.items
+  end
+
 end
+
+
+# Iteration 1: Inventory
+
+# inventory1.items 
+# => {} 
+
+# inventory1.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
+# inventory1.items 
+# => {"shirt" => {"quantity" => 50, "cost" => 15}}
+
+# inventory1.record_item({"shirt" => {"quantity" => 10, "cost" => 15}})
+# inventory1.items 
+# => {"shirt" => {"quantity" => 60, "cost" => 15}}

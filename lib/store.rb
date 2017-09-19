@@ -6,9 +6,9 @@ class Store
               :inventory_record
 
   def initialize(name, address, type)
-    @name = name
-    @address = address
-    @type = type
+    @name             = name
+    @address          = address
+    @type             = type
     @inventory_record = []
   end
 
@@ -16,4 +16,9 @@ class Store
     @inventory_record << inventory
   end
 
+  def stock_check(item)
+    inventory_record.map do |inventory|
+      inventory.check_inventory(item)
+    end.compact.first
+  end
 end
