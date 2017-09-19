@@ -13,12 +13,16 @@ class Inventory
     if @items.empty?
       @items = item
     elsif @items.keys == item.keys
-      @items.merge!(item){|key, oldval, newval| newval.merge!(oldval){|key, oldval, newval| oldval + newval } }
+      @items.merge!(item) do |key, oldval, newval|
+          newval.merge!(oldval){|key, oldval, newval| oldval["quantity"] + newval["quantity"] }
+      end
     else
     @items.merge(item)
     end
 
   end
+
+
 
 
 
