@@ -29,4 +29,10 @@ class InventoryTest < Minitest::Test
     assert_equal ({"shirt" => {"quantity" => 50, "cost" => 15}}), inventory1.items
   end
 
+  def test_it_can_check_inventory_for_item
+    inventory1.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
+
+    assert_equal ({"quantity" => 50, "cost" => 15}), inventory1.check_inventory("shirt")
+  end
+
 end

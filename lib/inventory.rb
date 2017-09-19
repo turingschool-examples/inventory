@@ -11,4 +11,10 @@ class Inventory
     @items.merge!(item)
   end
 
+  def check_inventory(item)
+    items.each do |key, value|
+      return value if key == item
+    end
+  end
+
 end
