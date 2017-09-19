@@ -16,4 +16,13 @@ class Store
     @inventory_record << inventory
   end
 
+  def stock_check(item)
+    @inventory_record.first.items[item]
+  end
+
+  def amount_sold(item)
+    @inventory_record
+    binding.pry
+  end
+
 end
