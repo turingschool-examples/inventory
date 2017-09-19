@@ -20,25 +20,25 @@ class InventoryTest < Minitest::Test
   end
 
   def test_record_item_adds_key_when_empty
-    item = { shirt: { quantity: 1, cost: 2 } }
+    item = { "shirt" => { "quantity" => 1, "cost" => 2 } }
     inventory.record_item(item)
     assert_equal item, inventory.items
   end
 
   def test_record_item_adds_key_when_other_items_present
-    inventory.record_item({ shirt: { quantity: 1, cost: 2 } })
-    inventory.record_item({ pants: { quantity: 2, cost: 3 } })
+    inventory.record_item({ "shirt" => { "quantity" => 1, "cost" => 2 } })
+    inventory.record_item({ "pants" => { "quantity" => 2, "cost" => 3 } })
     expected = {
-      shirt: { quantity: 1, cost: 2 },
-      pants: { quantity: 2, cost: 3 }
+      "shirt" => { "quantity" => 1, "cost" => 2 },
+      "pants" => { "quantity" => 2, "cost" => 3 }
     }
     assert_equal expected, inventory.items
   end
 
   def test_record_item_adds_quantity_when_same_other_present
-    inventory.record_item({ shirt: { quantity: 1, cost: 2 } })
-    inventory.record_item({ pants: { quantity: 4, cost: 2 } })
-    expected = { shirt: { quantity: 5, cost: 2 } }
+    inventory.record_item({ "shirt" => { "quantity" => 1, "cost" => 2 } })
+    inventory.record_item({ "pants" => { "quantity" => 4, "cost" => 2 } })
+    expected = { "shirt" => { "quantity" => 5, "cost" => 2 } }
     assert_equal expected, inventory.items
   end
 
