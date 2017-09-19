@@ -20,4 +20,9 @@ class Store
     @inventory_record.reduce {|inventory| inventory.items[item_name]}
   end
 
+  def amount_sold(item)
+      stock = @inventory_record.find_all {|inventory| inventory.items[item]}
+      stock.select {|inventory| inventory.items.key(item)}
+  end
+
 end
