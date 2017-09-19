@@ -54,7 +54,7 @@ class StoreTest < Minitest::Test
     assert_equal inventory, store.inventory_record[-1]
   end
 
-  def test_stock_check_returns_item_information_if_item_is_in_any_inventory
+  def test_stock_check_returns_item_information_from_the_latest_inventory_that_contains_given_item
     actual = @acme.stock_check("shirt")
     expected = {"quantity" => 55, "cost" => 15}
 
@@ -75,7 +75,7 @@ class StoreTest < Minitest::Test
     assert_equal expected, actual
   end
 
-  def test_amount_sold_returns_the_amount_sold_between_two_dates
+  def test_amount_sold_returns_the_amount_sold_between_most_recent_two_dates
     ace = Store.new("Ace", "834 2nd St", "Hardware")
 
     inventory3 = Inventory.new(Date.new(2017, 9, 16))
