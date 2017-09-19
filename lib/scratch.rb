@@ -1,18 +1,23 @@
 
-  def record_item(item_qty_cost)
+def record_item(item_qty_cost)
+require "pry"; binding.pry
+  item = item_qty_cost.keys[0]  #good
+  qty_and_cost = item_qty_cost.values[0]  #good
+  @items = {item => qty_and_cost}
+  # require "pry"; binding.pry
+    quantity = qty_and_cost.keys[0]  #"quantity"
+    amount = qty_and_cost.values[0] #50
+    quantities = {quantity => amount} #{"quantity"=>50}
 
-  key = item_qty_cost.keys[0]  #good
-  value = item_qty_cost.values[0]  #good
-  items = {key => value} #good
+    cost = qty_and_cost.keys[1]  # "cost"
+    amount = qty_and_cost.values[1] #15
+    costs = {cost => amount} # {"cost"=>15}
 
-  inner_key = value.keys[0]  #"quantitiy"
-  inner_value = value.values[0] #50
-  value = {inner_key => inner_value} # {"quantity"=>50}
-  inner_key = value.keys[1] #cost
-  inner_value = value.values[1] #15
-  value = value + {inner_key => inner_value} # {"cost"=>15}
+    # i want to be able to write over quanities.
+    #items = {item => qty_and_cost}
 
-  items[key] = value
-  items[key][inner_key] = inner_value
+    items[item][quantity] = items[item][quantity]  + items[item][quantity]  #100
+    items[item][cost] = items[item][cost] + items[item][cost] #30
+
 
   end
