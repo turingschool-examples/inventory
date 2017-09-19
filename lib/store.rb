@@ -58,14 +58,13 @@ class Store
   def us_conversion(inventory, order)
     total = 0
     order.each_pair do |key, value|
-      # binding.pry
       total += (inventory.items[key]["cost"] * value)
     end
     total
   end
 
   def brazilian_order(order)
-
+    (us_order(order) * 3.08).round(2)
   end
 
   def order_items(order)
