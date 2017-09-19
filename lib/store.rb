@@ -23,4 +23,13 @@ class Store
     inventory.items[item_name]['quantity']
   end
 
+  def amount_sold(item_name)
+
+  end
+
+  def find_multiple_items_in_different_inventories(item_name)
+    #choose the inventories that have the same item name
+    @inventory_record.select do |inventory|
+      inventory.item_name
+  end
 end

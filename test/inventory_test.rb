@@ -35,7 +35,7 @@ class InventoryTest < Minitest::Test
     assert_equal 15, inventory1.items['shirt']['cost']
   end
 
-  def test_it_can_record_multiple_items
+  def test_it_can_record_multiple_items_that_have_the_same_name
     inventory1 = Inventory.new(Date.new(2017, 9, 18))
     inventory1.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
     inventory1.record_item({"shirt" => {"quantity" => 10, "cost" => 15}})
@@ -46,6 +46,15 @@ class InventoryTest < Minitest::Test
     assert_equal 15, inventory1.items['shirt']['cost']
   end
 
+  def test_it_can_have_multiple_items_with_different_items
+    #failing test....
+    inventory4 = Inventory.new(Date.new(2017, 9, 18))
+    inventory4.record_item({"mitre saw" => {"quantity" => 10, "cost" => 409}})
+    inventory4.record_item({"hammer" => {"quantity" => 15, "cost" => 20}})
 
+    expected = {"mitre saw" => {"quantity" => 10, "cost" => 409}},{"hammer" => {"quantity" => 15, "cost" => 20}}
+    actual = inventory4.items
+    assert_equal expected, actual
+  end
 
 end
