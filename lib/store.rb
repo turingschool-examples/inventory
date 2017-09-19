@@ -46,4 +46,8 @@ class Store
     end
   end
 
+  def brazillian_order(order)
+    us_order(order) * 3.08
+  end
+
 end
