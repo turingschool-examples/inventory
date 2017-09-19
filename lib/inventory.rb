@@ -17,4 +17,8 @@ class Inventory
     items[item_name] && items[item_name]["quantity"]
   end
 
+  def cost(item_name)
+    items[item_name] && items[item_name]["cost"]
+  end
+
 end
