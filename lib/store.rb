@@ -38,8 +38,17 @@ class Store
     end
   end
 
-  def us_order(order)
+  def find_cost(item)
+    costs = inventory_record.map do |inventory|
+      inventory.item_cost(item)
+    end
+    costs.compact[0]
+  end
 
+  def us_order(order)
+    order.map do |key, value|
+      find_cost(key) * value
+    end.sum
   end
 
 end

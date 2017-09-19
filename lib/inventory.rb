@@ -21,7 +21,7 @@ class Inventory
     items.each do |key, value|
       return value["cost"] if key == item
     end
-    "we don't carry that item"
+    nil
   end
 
 end
