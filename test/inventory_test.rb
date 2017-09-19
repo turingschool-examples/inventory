@@ -51,4 +51,13 @@ class InventoryTest < Minitest::Test
     assert_equal 1, inventory.stock("shirt")
   end
 
+  def test_cost_returns_nil_if_item_unrecorded
+    assert_nil inventory.cost("shirt")
+  end
+
+  def test_cost_returns_quantity_of_record_item
+    inventory.record_item({ "shirt" => { "quantity" => 1, "cost" => 2 } })
+    assert_equal 2, inventory.cost("shirt")
+  end
+
 end
