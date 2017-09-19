@@ -12,8 +12,9 @@ class Inventory
 
   def record_item(item)
     item.map do |key, value|
-      @items.store(key, value) 
+      @items.store(key, value)
     end
+    # need to figure out how to merge hashes and adding values instead of overwriting them 
   end
 
 
