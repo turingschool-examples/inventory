@@ -88,7 +88,7 @@ class StoreTest < Minitest::Test
 
     assert_equal [20, 15], ace.quantities("hammer")
   end
-  
+
   def test_store_can_find_amount_sold
     ace = Store.new("Ace", "834 2nd St", "Hardware")
 
@@ -103,6 +103,19 @@ class StoreTest < Minitest::Test
     ace.add_inventory(inventory4)
 
     assert_equal 5, ace.amount_sold("hammer")
+  end
+
+  def test_store_can_calculate_us_price
+    hobby_town = Store.new("Hobby Town", "894 Bee St", "Hobby")
+    inventory5 = Inventory.new(Date.new(2017, 3, 10))
+    inventory5.record_item({"miniature orc" => {"quantity" => 2000, "cost" => 20}})
+    inventory5.record_item({"fancy paint brush" => {"quantity" => 200, "cost" => 20}})
+
+    assert_equal 620.00, hobby_town.us_order({"miniature orc" => 30, "fancy paint brush" => 1})
+  end
+
+  def test_store_can_calculate_brazillian_order
+
   end
 
 end

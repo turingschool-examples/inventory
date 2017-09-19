@@ -38,4 +38,8 @@ class Store
     end
   end
 
+  def us_order(order)
+
+  end
+
 end

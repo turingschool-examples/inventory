@@ -17,4 +17,11 @@ class Inventory
     end
   end
 
+  def item_cost(item)
+    items.each do |key, value|
+      return value["cost"] if key == item
+    end
+    "we don't carry that item"
+  end
+
 end
