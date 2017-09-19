@@ -19,10 +19,10 @@ class Inventory
   end
   
   def check_inventory(item)
-    items.each {|key, val| return val if key == item}
+    @items.each {|key, val| return val if key == item}
   end
 
   def item_cost(item)
-    items.each {|key, val| return val["cost"] if key == item}
+    @items.each {|key, val| return val["cost"] if key == item}
   end
 end
