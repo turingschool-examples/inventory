@@ -9,4 +9,12 @@ class Inventory
     @items = {}
   end
 
+
+  def record_item(argument)
+    @items.merge!(argument) do |value|
+      value.map { |v| v["quantity"] }.sum
+    end
+  end
+  
+
 end

@@ -22,7 +22,16 @@ class InventoryTest < Minitest::Test
   def test_inventory_1_initializes_with_empty_items_hash
     inventory1 = Inventory.new(Date.new(2017, 9, 18))
     expected = {}
-    
+
+    assert_equal expected, inventory1.items
+  end
+
+  def test_inventory1_records_items
+    inventory1 = Inventory.new(Date.new(2017, 9, 18))
+    inventory1.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
+
+    expected = {"shirt" => {"quantity" => 50, "cost" => 15}}
+
     assert_equal expected, inventory1.items
   end
 
