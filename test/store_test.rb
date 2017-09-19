@@ -4,12 +4,26 @@ require "./lib/store"
 require "./lib/inventory"
 
 class StoreTest < Minitest::Test
-  attr_reader :hobby_town, :ace, :acme 
+  attr_reader :hobby_town, 
+              :ace, 
+              :acme, 
+              :inventory, 
+              :inventory1,
+              :inventory2, 
+              :inventory3,
+              :inventory4,
+              :inventory5
   
   def setup
     @hobby_town = Store.new("Hobby Town", "894 Bee St", "Hobby")
     @ace        = Store.new("Ace", "834 2nd St", "Hardware")
     @acme       = Store.new("Acme", "324 Main St", "Grocery")
+    @inventory  = Inventory.new(Date.new(2017, 9, 18))
+    @inventory1 = Inventory.new(Date.new(2017, 9, 18))
+    @inventory2 = Inventory.new(Date.new(2017, 9, 18))
+    @inventory3 = Inventory.new(Date.new(2017, 9, 16)) 
+    @inventory4 = Inventory.new(Date.new(2017, 9, 18))
+    @inventory5 = Inventory.new(Date.new(2017, 3, 10))
   end
 
   def test_store_has_a_name
@@ -29,8 +43,6 @@ class StoreTest < Minitest::Test
   end
 
   def test_store_can_add_inventories
-    inventory = Inventory.new(Date.new(2017, 9, 18))
-
     assert ace.inventory_record.empty?
 
     ace.add_inventory(inventory)
@@ -40,8 +52,6 @@ class StoreTest < Minitest::Test
   end
 
   def test_store_can_have_nventory
-    inventory1 = Inventory.new(Date.new(2017, 9, 18))
-    inventory2 = Inventory.new(Date.new(2017, 9, 18))
     inventory2.record_item({"shoes" => {"quantity" => 40, "cost" => 30}})
     
     assert_equal ([]), acme.inventory_record 
@@ -53,10 +63,7 @@ class StoreTest < Minitest::Test
   end
 
   def test_store_can_check_stock 
-    inventory1 = Inventory.new(Date.new(2017, 9, 18))
-    inventory2 = Inventory.new(Date.new(2017, 9, 18))
     inventory1.record_item({"shirt" => {"quantity" => 60, "cost" => 15}})
-    
     inventory2.record_item({"shoes" => {"quantity" => 40, "cost" => 30}})
     
     assert_equal ([]), acme.inventory_record 
@@ -68,10 +75,7 @@ class StoreTest < Minitest::Test
   end
 
   def test_store_can_determine_sold_count    
-    inventory3 = Inventory.new(Date.new(2017, 9, 16)) 
     inventory3.record_item({"hammer" => {"quantity" => 20, "cost" => 20}})
-    
-    inventory4 = Inventory.new(Date.new(2017, 9, 18))
     inventory4.record_item({"mitre saw" => {"quantity" => 10, "cost" => 409}})
     inventory4.record_item({"hammer" => {"quantity" => 15, "cost" => 20}})
     
@@ -82,11 +86,10 @@ class StoreTest < Minitest::Test
   end
 
   def test_international_sales
-    inventory5 = Inventory.new(Date.new(2017, 3, 10))
     inventory5.record_item({"miniature orc" => {"quantity" => 2000, "cost" => 20}})
     inventory5.record_item({"fancy paint brush" => {"quantity" => 200, "cost" => 20}})
-    
     ace.add_inventory(inventory5) 
+    
     order = ace.print_us_order({"miniature orc" => 30, "fancy paint brush" => 1})
     
     assert_equal "$620", order
