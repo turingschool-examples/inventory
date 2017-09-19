@@ -74,8 +74,9 @@ class StoreTest < Minitest::Test
     acme = Store.new("Acme", "324 Main St", "Grocery")
     acme.add_inventory(inventory1)
     acme.add_inventory(inventory2)
-    
-    assert_equal {"quantity" => 60, "cost" => 15}, acme.stock_check("shirt")
+
+    assert_equal 60, acme.stock_check("shirt")["quantity"]
+    assert_equal 30, acme.stock_check("shirt")["cost"]
   end
 
 end

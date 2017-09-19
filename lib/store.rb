@@ -20,8 +20,9 @@ class Store
   end
 
   def stock_check(item)
-    @inventory_record.items
-    binding.pry
+    @inventory_record.detect do |inv|
+      inv.items[item]
+    end.items.values[0]
   end
 
 end
