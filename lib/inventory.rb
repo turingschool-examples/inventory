@@ -9,15 +9,28 @@ class Inventory
   end
 
   def record_item(item)
-    keys = item.keys
-    key = keys[0]
-    values = item.values
-    value = values[0]
-    if items[key] != key
-      @items[key] = value
+    if @items.empty?
+      @items = @items.merge(item)
     else
-      @items.merge!(item){|key, oldval, newval| newval + oldval}
+      keys = item.keys
+      key = keys[0]
+      original_quantity = @items[key]['quantity']
+      added_quantity = item[key]['quantity']
+      @items[key]["quantity"] = original_quantity + added_quantity
     end
   end
+
+
+  # def record_item(item)
+  #   keys = item.keys
+  #   key = keys[0]
+  #   values = item.values
+  #   value = values[0]
+  #   if items[key] != key
+  #     @items[key] = value
+  #   else
+  #     @items.merge!(item){|key, oldval, newval| newval + oldval}
+  #   end
+  # end
 
 end

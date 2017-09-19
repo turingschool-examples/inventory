@@ -22,6 +22,7 @@ class InventoryTest < Minitest::Test
   end
 
   def test_it_can_record_item
+    
     item = {"shirt" => {"quantity" => 50, "cost" => 15}}
     @i.record_item(item)
     assert_equal 1, @i.items.length
@@ -32,6 +33,7 @@ class InventoryTest < Minitest::Test
     item2 = {"shirt" => {"quantity" => 10, "cost" => 15}}
     @i.record_item(item1)
     @i.record_item(item2)
+    assert_equal 60, @i.items['shirt']['quantity']
   end
 
 end
