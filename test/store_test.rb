@@ -88,7 +88,7 @@ class StoreTest < Minitest::Test
     inventory5.record_item({"fancy paint brush" => {"quantity" => 200, "cost" => 20}})
 
 
-    assert_equal $620, hobby_town.us_order({"miniature orc" => 30, "fancy paint brush" => 1})
+    assert_equal 620, hobby_town.us_order({"miniature orc" => 30, "fancy paint brush" => 1})
   end
 
 

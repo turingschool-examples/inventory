@@ -38,7 +38,7 @@ class Inventory
     quantity = quantity_info[1]
   end
 
-  def retrieve_multiple_item_costs(item_list)
+  def retrieve_item_costs(item_list)
     item_list.map do |item|
       cost = item_cost(@items[item])
       cost['cost']

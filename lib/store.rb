@@ -35,12 +35,11 @@ class Store
   end
 
   def us_order(order_info)
-    items = order_info.keys
-    @inventory_record.map do |inventory|
-      inventory.retrieve_multiple_item_costs
+    purchased_items = order_info.keys
+    @inventory_record.each do |inventory|
+        inventory.retrieve_item_costs(purchased_items)
     end
-
-
   end
+
 
 end

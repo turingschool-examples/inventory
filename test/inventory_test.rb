@@ -63,11 +63,11 @@ class InventoryTest < Minitest::Test
     assert_equal 20, @inventory1.retrieve_quantity('hammer')
   end
 
-  def test_it_can_retrieve_multiple_item_costs
+  def test_it_can_retrieve_item_costs
     @inventory1.record_item({"shirt" => {"quantity" => 60, "cost" => 15}})
     @inventory1.record_item({"shoes" => {"quantity" => 40, "cost" => 30}})
 
-    assert_equal [15, 30], @inventory1.retrieve_multiple_item_costs(['shirt', 'shoes'])
+    assert_equal [15, 30], @inventory1.retrieve_item_costs(['shirt', 'shoes'])
   end
 
 
