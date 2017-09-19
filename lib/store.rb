@@ -44,4 +44,6 @@ class Store
     inventory.sort_by {|inventory| inventory.date}
   end
 
+
+
 end
