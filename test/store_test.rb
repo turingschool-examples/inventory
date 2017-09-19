@@ -66,6 +66,23 @@ class StoreTest < Minitest::Test
     assert_equal 60, store.stock_check('shirt')
   end
 
+  def test_it_can_find_multiple_inventories_with_the_same_inventory_item
+    store = Store.new("Ace", "834 2nd St", "Hardware")
+    inventory2 = Inventory.new(Date.new(2017, 9, 18))
+    inventory2.record_item({"flies" => {"quantity" => 20, "cost" => 15}})
+    inventory3 = Inventory.new(Date.new(2017, 9, 16))
+    inventory3.record_item({"hammer" => {"quantity" => 20, "cost" => 20}})
+    inventory4 = Inventory.new(Date.new(2017, 9, 18))
+    inventory4.record_item({"hammer" => {"quantity" => 15, "cost" => 20}})
+
+    store.add_inventory(inventory2)
+    store.add_inventory(inventory3)
+    store.add_inventory(inventory4)
+
+    assert_equal 2, store.find_multiple_items_in_different_inventories('hammer').count
+    assert_equal inventory3, store.find_multiple_items_in_different_inventories('hammer').first
+  end
+
   def test_it_can_track_the_change_amount_for_across_inventories
     store = Store.new("Ace", "834 2nd St", "Hardware")
     inventory1 = Inventory.new(Date.new(2017, 9, 18))
