@@ -6,6 +6,7 @@ class InventoryTest < Minitest::Test
 
   def setup
     @inventory1 = Inventory.new(Date.new(2017, 9, 18))
+    @inventory2 = Inventory.new(Date.new(2017, 9, 18))
   end
 
 
@@ -28,6 +29,19 @@ class InventoryTest < Minitest::Test
     assert_equal ({"shirt" => {"quantity" => 50, "cost" => 15}}), @inventory1.items
   end
 
+  def test_it_can_merge_item_quantities
+    old_values = {"quantity" => 50, "cost" => 15}
+    new_values = {"quantity" => 10, "cost" => 15}
+
+    assert_equal ({"quantity" => 60}), @inventory1.merge_item_quantities(old_values, new_values)
+  end
+
+  def test_it_can_retrieve_item_cost
+    new_values = {"quantity" => 10, "cost" => 15}
+
+    assert_equal ({"cost" => 15}), @inventory1.item_cost(new_values)
+  end
+
   def test_it_can_record_more_items
     @inventory1.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
     @inventory1.record_item({"shirt" => {"quantity" => 10, "cost" => 15}})
@@ -35,6 +49,7 @@ class InventoryTest < Minitest::Test
     assert_equal ({"shirt" => {"quantity" => 60, "cost" => 15}}), @inventory1.items
   end
 
+  
 
 
 
