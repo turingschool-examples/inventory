@@ -31,7 +31,7 @@ class StoreTest < Minitest::Test
 
   def test_store_can_add_inventories
     store = Store.new("Ace", "834 2nd St", "Hardware")
-    inventory = Inventory.new
+    inventory = Inventory.new(Date.new(2017, 9, 18))
 
     assert store.inventory_record.empty?
 
@@ -39,6 +39,35 @@ class StoreTest < Minitest::Test
 
     refute store.inventory_record.empty?
     assert_equal inventory, store.inventory_record[-1]
+  end
+
+  def test_store_records_inventories_when_added
+    inventory2 = Inventory.new(Date.new(2017, 9, 18))
+    inventory2.record_item({"shoes" => {"quantity" => 40, "cost" => 30}})
+
+    acme = Store.new("Acme", "324 Main St", "Grocery")
+
+    assert_equal [], acme.inventory_record
+
+    acme.add_inventory(inventory2)
+
+    assert_equal [inventory2], acme.inventory_record
+  end
+
+  def test_store_can_add_multiple_inventories
+    inventory1 = Inventory.new(Date.new(2017, 9, 18))
+    inventory2 = Inventory.new(Date.new(2017, 9, 18))
+    inventory1.record_item({"shirt" => {"quantity" => 50, "cost" => 15}})
+    inventory2.record_item({"shoes" => {"quantity" => 40, "cost" => 30}})
+
+    acme = Store.new("Acme", "324 Main St", "Grocery")
+
+    assert_equal [], acme.inventory_record
+
+    acme.add_inventory(inventory1)
+    acme.add_inventory(inventory2)
+
+    assert_equal [inventory1, inventory2], acme.inventory_record
   end
 
 end
